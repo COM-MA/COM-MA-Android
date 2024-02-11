@@ -9,5 +9,5 @@ import com.example.com_ma.R
 @Composable
 fun OnBoardingScreen() {
     var imgLogo = painterResource(id = R.drawable.img_onboarding_logo)
-    Image(painter = imgLogo, contentDescription = null)
+    Image(painter = imgLogo, contentDescription = "logo")
 }
