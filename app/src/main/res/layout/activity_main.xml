@@ -6,10 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <fragment
+        android:id="@+id/nav_host_fragment_activity_main"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/mobile_navigation" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_appbar"
             android:layout_width="match_parent"
@@ -17,6 +26,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="20dp"
             android:layout_gravity="bottom">
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/navView"
                 android:layout_width="match_parent"
@@ -28,6 +38,7 @@
                 app:itemPaddingBottom="0dp"
                 app:menu="@menu/bottom_nav_menu" />
         </com.google.android.material.bottomappbar.BottomAppBar>
+
         <ImageButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
@@ -36,19 +47,6 @@
             android:src="@drawable/ic_bottom_nav_camera"
             app:layout_anchor="@id/bottom_appbar"
             app:layout_anchorGravity="center_horizontal"/>
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <fragment
-        android:id="@+id/nav_host_fragment_activity_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
