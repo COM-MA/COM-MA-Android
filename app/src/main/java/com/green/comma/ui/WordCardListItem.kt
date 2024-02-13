@@ -1,0 +1,68 @@
+package com.green.comma.ui
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.green.comma.ui.theme.Lavender200
+import com.green.comma.ui.theme.Typography
+import com.green.comma.ui.theme.pretendard
+
+@Composable
+fun WordCardListItem(img: Painter, modifier: Modifier = Modifier){
+    Surface(
+        modifier = modifier
+            .width(162.dp)
+            .height(195.dp)
+            .padding(10.dp),
+        color = Color.White,
+        shape = RoundedCornerShape(12.dp),
+        shadowElevation = 4.dp
+    ) {
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ){
+            Image(modifier = modifier.height(77.dp), painter = img, contentDescription = "단어 이미지")
+            Text(modifier = modifier.padding(0.dp, 6.dp), text = "호랑이", style = Typography.labelLarge)
+            Surface(
+                modifier = Modifier
+                    .width(80.dp)
+                    .height(27.dp)
+                    .clickable(onClick = {}),
+                shape = RoundedCornerShape(8.dp),
+                color = Lavender200
+            ) {
+                Text(
+                    modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically),
+                    text = "뒤집기",
+                    style = TextStyle(
+                        fontFamily = pretendard,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        color = Color.White
+                    ),
+                    textAlign = TextAlign.Center)
+            }
+        }
+    }
+}
