@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.com_ma'
+    namespace 'com.green.comma'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.com_ma"
+        applicationId "com.green.comma"
         minSdk 24
         targetSdk 33
         versionCode 1
