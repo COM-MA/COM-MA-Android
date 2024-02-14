@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape_button_background"
             android:fontFamily="@font/pretendard_bold"
-            android:text="돌아가기"
+            android:text="@string/card_btn_goback"
             android:textSize="22dp" />
     </LinearLayout>
 
