@@ -20,7 +20,7 @@
             android:paddingHorizontal="@dimen/horizontal_padding">
 
             <ImageView
-                android:layout_width="83dp"
+                android:layout_width="@dimen/app_bar_logo_width"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_logo_lavender" />

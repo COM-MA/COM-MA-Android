@@ -10,15 +10,20 @@
         android:id="@+id/toolbar_home"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
         app:layout_constraintBottom_toTopOf="@+id/coordinator_layout_home"
-        android:paddingHorizontal="@dimen/horizontal_padding"
-        android:paddingVertical="@dimen/vertical_padding"
         android:background="@color/lavender_500">
-        <ImageView
-            android:layout_width="83dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_logo_white"
-            android:alpha="0.4" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/horizontal_padding">
+            <ImageView
+                android:layout_width="@dimen/app_bar_logo_width"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:src="@drawable/ic_logo_white"
+                android:alpha="0.4" />
+        </FrameLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
