@@ -26,6 +26,10 @@
     <string name="content_list_title">동화 리스트</string>
     <string name="content_list_description">영상으로 재생되는 동화로 재미있게 학습해요!</string>
 
+    <string name="camera_detail_btn_quit">나가기</string>
+    <string name="camera_detail_btn_create_card">단어카드 생성</string>
+    <string name="camera_detail_btn_recog_again">다시 인식하기</string>
+
     <string name="list_align_text_one">한줄 보기</string>
     <string name="list_align_text_two">두줄 보기</string>
     <string name="list_align_text_three">세줄 보기</string>
