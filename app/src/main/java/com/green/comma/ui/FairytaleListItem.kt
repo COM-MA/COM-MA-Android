@@ -53,7 +53,7 @@ fun FairytaleListItem(modifier: Modifier) {
         modifier = modifier
             .fillMaxWidth()
             .height(114.dp)
-            .padding(10.dp),
+            .padding(horizontal = 30.dp, vertical = 5.dp),
         color = Color.White,
         shadowElevation = 4.dp,
         onClick = { }
