@@ -27,7 +27,7 @@ import com.green.comma.ui.theme.Typography
 import com.green.comma.ui.theme.pretendard
 
 @Composable
-fun WordCardListItem(img: Painter, modifier: Modifier = Modifier){
+fun WordCardListItem(img: Painter, onClick: () -> Unit, modifier: Modifier = Modifier){
     Surface(
         modifier = modifier
             .width(162.dp)
@@ -35,7 +35,8 @@ fun WordCardListItem(img: Painter, modifier: Modifier = Modifier){
             .padding(10.dp),
         color = Color.White,
         shape = RoundedCornerShape(12.dp),
-        shadowElevation = 4.dp
+        shadowElevation = 4.dp,
+        onClick = onClick
     ) {
         Column(
             modifier = modifier.fillMaxSize(),
@@ -45,7 +46,7 @@ fun WordCardListItem(img: Painter, modifier: Modifier = Modifier){
             Image(modifier = modifier.height(77.dp), painter = img, contentDescription = "단어 이미지")
             Text(modifier = modifier.padding(0.dp, 6.dp), text = "호랑이", style = Typography.labelLarge)
             Surface(
-                modifier = Modifier
+                modifier = modifier
                     .width(80.dp)
                     .height(27.dp)
                     .clickable(onClick = {}),
@@ -53,7 +54,7 @@ fun WordCardListItem(img: Painter, modifier: Modifier = Modifier){
                 color = Lavender200
             ) {
                 Text(
-                    modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically),
+                    modifier = modifier.wrapContentHeight(align = Alignment.CenterVertically),
                     text = "뒤집기",
                     style = TextStyle(
                         fontFamily = pretendard,

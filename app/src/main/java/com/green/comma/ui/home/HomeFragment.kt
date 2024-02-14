@@ -1,5 +1,6 @@
 package com.green.comma.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.green.comma.R
 import com.green.comma.databinding.FragmentHomeBinding
 import com.green.comma.ui.WordCardListItem
+import com.green.comma.ui.card.CardDetailActivity
+
 
 class HomeFragment : Fragment() {
 
@@ -41,7 +44,7 @@ class HomeFragment : Fragment() {
             setContent {
                 LazyRow(modifier = Modifier.padding(start = 20.dp)){
                     items(10) {index ->
-                        WordCardListItem(painterResource(id = R.drawable.ic_bottom_nav_camera))
+                        WordCardListItem(painterResource(id = R.drawable.ic_bottom_nav_camera), { moveToCardDetail() })
                     }
                 }
             }
@@ -54,6 +57,10 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    private fun moveToCardDetail() {
+        val intent = Intent(activity, CardDetailActivity::class.java) //fragment라서 activity intent와는 다른 방식
+        startActivity(intent)
+    }
 
 
     override fun onDestroyView() {
