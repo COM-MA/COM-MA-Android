@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.composeViewWordCard.apply {
+        binding.composeViewHomeWordCard.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 LazyRow(modifier = Modifier.padding(start = 20.dp)){
