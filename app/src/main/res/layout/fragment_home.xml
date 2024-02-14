@@ -58,6 +58,7 @@
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="@dimen/main_list_bottom_padding"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
