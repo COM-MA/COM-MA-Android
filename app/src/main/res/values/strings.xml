@@ -19,6 +19,10 @@
     <string name="card_tv_word_card_description">필요한 단어들을 바로바로 확인해요!</string>
     <string name="card_tv_align">가나다순</string>
 
+    <string name="card_detail_btn_delete">삭제</string>
+    <string name="card_detail_tv_title">단어카드 상세보기</string>
+    <string name="card_btn_goback">돌아가기</string>
+
     <string name="list_align_text_one">한줄 보기</string>
     <string name="list_align_text_two">두줄 보기</string>
     <string name="list_align_text_three">세줄 보기</string>
