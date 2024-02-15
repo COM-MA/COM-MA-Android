@@ -18,15 +18,13 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.green.comma.BottomNavigationHelper
 import com.green.comma.MainActivity
 import com.green.comma.R
 import com.green.comma.databinding.FragmentHomeBinding
 import com.green.comma.ui.PreviewFairytaleListItem
 import com.green.comma.ui.WordCardListItem
 import com.green.comma.ui.card.CardDetailActivity
+import com.green.comma.util.BottomNavigationHelper
 
 
 class HomeFragment : Fragment() {

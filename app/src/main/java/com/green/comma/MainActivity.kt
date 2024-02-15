@@ -8,13 +8,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.green.comma.databinding.ActivityMainBinding
 
-class BottomNavigationHelper {
-    companion object {
-        fun triggerMenuItemSelected(bottomNavigationView: BottomNavigationView, itemId: Int) {
-            bottomNavigationView.selectedItemId = itemId
-        }
-    }
-}
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -23,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = com.green.comma.databinding.ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         navView = binding.navView
