@@ -37,6 +37,9 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
