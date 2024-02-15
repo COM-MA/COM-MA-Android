@@ -31,8 +31,8 @@ import com.green.comma.ui.theme.pretendard
 @Composable
 fun WordCardView(onClick: () -> Unit, wordText: String) {
     val img = painterResource(id = R.drawable.ic_bottom_nav_camera)
-    val imgVolume = painterResource(id = R.drawable.ic_word_card_volume)
-    val imgStar = painterResource(id = R.drawable.ic_word_card_volume)
+    val imgVolume = painterResource(id = R.drawable.ic_word_card_speaker_lavender)
+    val imgStar = painterResource(id = R.drawable.ic_word_card_speaker_lavender)
 
     Surface(
         modifier = Modifier
