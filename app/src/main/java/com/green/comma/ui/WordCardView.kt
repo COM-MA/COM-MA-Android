@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -27,14 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.green.comma.R
 import com.green.comma.ui.theme.Lavender200
-import com.green.comma.ui.theme.Typography
 import com.green.comma.ui.theme.pretendard
 @Preview
 @Composable
-fun WordCardView() {
+fun WordCardView(onClick: () -> Unit, wordText: String) {
     val img = painterResource(id = R.drawable.ic_bottom_nav_camera)
     val imgVolume = painterResource(id = R.drawable.ic_word_card_volume)
     val imgStar = painterResource(id = R.drawable.ic_word_card_volume)
+
     Surface(
         modifier = Modifier
             .width(350.dp)
@@ -49,11 +48,11 @@ fun WordCardView() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ){
-            Image(modifier = Modifier.padding(bottom = 15.dp), painter = imgVolume, contentDescription = "스피커")
+            Image(modifier = Modifier.padding(bottom = 15.dp).clickable(onClick = onClick), painter = imgVolume, contentDescription = "스피커")
             Image(modifier = Modifier.height(180.dp), painter = img, contentDescription = "단어 이미지")
             Text(
                 modifier = Modifier.padding(top = 12.dp, bottom = 30.dp),
-                text = "호랑이",
+                text = wordText,
                 style = TextStyle(
                     fontFamily = pretendard,
                     fontWeight = FontWeight.Bold,
