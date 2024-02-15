@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.green.comma.R
 import com.green.comma.databinding.FragmentHomeBinding
+import com.green.comma.ui.PreviewFairytaleListItem
 import com.green.comma.ui.WordCardListItem
 import com.green.comma.ui.card.CardDetailActivity
 
@@ -27,9 +28,6 @@ import com.green.comma.ui.card.CardDetailActivity
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -38,17 +36,31 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val userViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.composeViewHomeWordCard.apply {
+        val includeWordCardBinding = binding.includeHomeWordCard
+        val includeFairytaleBinding = binding.includeHomePopularFairytale
+
+        includeWordCardBinding.composeViewHomePreviewList.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 LazyRow(modifier = Modifier.padding(start = 20.dp)){
                     items(10) {index ->
                         WordCardListItem(painterResource(id = R.drawable.ic_bottom_nav_camera), { moveToCardDetail() })
+                    }
+                }
+            }
+        }
+
+        includeFairytaleBinding.composeViewHomePreviewList.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                LazyRow(modifier = Modifier.padding(start = 20.dp)){
+                    items(5) {index ->
+                        PreviewFairytaleListItem(painterResource(id = R.drawable.ic_bottom_nav_card_fill))
                     }
                 }
             }
