@@ -18,6 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.green.comma.BottomNavigationHelper
+import com.green.comma.MainActivity
 import com.green.comma.R
 import com.green.comma.databinding.FragmentHomeBinding
 import com.green.comma.ui.PreviewFairytaleListItem
@@ -55,6 +59,11 @@ class HomeFragment : Fragment() {
             }
         }
 
+        includeWordCardBinding.btnMore.setOnClickListener{
+            val mainActivity = activity as MainActivity
+            BottomNavigationHelper.triggerMenuItemSelected(bottomNavigationView = mainActivity.getBottomNavigationView(), R.id.navigation_card)
+        }
+
         includeFairytaleBinding.composeViewHomePreviewList.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
@@ -64,6 +73,11 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        includeFairytaleBinding.btnMore.setOnClickListener{
+            val mainActivity = activity as MainActivity
+            BottomNavigationHelper.triggerMenuItemSelected(bottomNavigationView = mainActivity.getBottomNavigationView(), R.id.navigation_content)
         }
 
         val textView: TextView = binding.textHome
