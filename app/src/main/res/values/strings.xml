@@ -38,4 +38,6 @@
     <string name="list_align_text_two">두줄 보기</string>
     <string name="list_align_text_three">세줄 보기</string>
 
+    <string name="word_card_btn_revert">뒤집기</string>
+
 </resources>
