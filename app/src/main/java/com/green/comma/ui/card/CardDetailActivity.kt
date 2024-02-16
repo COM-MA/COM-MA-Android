@@ -23,12 +23,12 @@ class CardDetailActivity : AppCompatActivity() {
         val tts = TTS(applicationContext)
         tts.setTTS()
 
-        binding.composeViewWordView.apply {
+        /*binding.composeViewWordView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 WordCardView({ tts.readTTS(wordText) }, wordText)
             }
-        }
+        }*/
     }
 
 
