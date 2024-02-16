@@ -2,9 +2,11 @@ package com.green.comma.ui.camera
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.green.comma.R
 import com.green.comma.TTS
 import com.green.comma.databinding.ActivityCameraResultBinding
+import com.green.comma.ui.WordCardView
 
 class CameraResultActivity : AppCompatActivity() {
 
@@ -19,10 +21,17 @@ class CameraResultActivity : AppCompatActivity() {
         val tts = TTS(applicationContext)
         tts.setTTS()
 
-        var text = binding.textWord.text.toString()
+        var wordText = binding.textWord.text.toString()
 
         binding.btnSpeaker.setOnClickListener{
-            tts.readTTS(text)
+            tts.readTTS(wordText)
         }
+
+        /*binding.composeViewWordCardView.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                WordCardView({ tts.readTTS(wordText) }, wordText)
+            }
+        }*/
     }
 }
