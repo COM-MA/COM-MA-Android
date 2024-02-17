@@ -1,4 +1,4 @@
-package com.green.comma.ui
+package com.green.comma.ui.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 fun PreviewFairytaleListItem(img: Painter){
     Surface(
         modifier = Modifier
-            .width(270.dp)
-            .height(160.dp)
+            .width(294.dp)
+            .height(124.dp)
             .clickable {  }
             .padding(10.dp),
         color = Color.White,

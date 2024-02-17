@@ -1,4 +1,4 @@
-package com.green.comma.ui
+package com.green.comma.ui.compose
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
