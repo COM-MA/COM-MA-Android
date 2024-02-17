@@ -3,7 +3,7 @@ package com.green.comma
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import com.green.comma.ui.SignInScreen
+import com.green.comma.ui.compose.SignInScreen
 
 class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

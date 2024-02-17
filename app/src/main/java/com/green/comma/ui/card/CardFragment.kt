@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.green.comma.R
 import com.green.comma.databinding.FragmentCardBinding
-import com.green.comma.ui.WordCardListItem
+import com.green.comma.ui.compose.WordCardListItem
 
 class CardFragment : Fragment() {
 

@@ -21,8 +21,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.green.comma.MainActivity
 import com.green.comma.R
 import com.green.comma.databinding.FragmentHomeBinding
-import com.green.comma.ui.PreviewFairytaleListItem
-import com.green.comma.ui.WordCardListItem
+import com.green.comma.ui.compose.PreviewFairytaleListItem
+import com.green.comma.ui.compose.WordCardListItem
 import com.green.comma.ui.card.CardDetailActivity
 import com.green.comma.util.BottomNavigationHelper
 

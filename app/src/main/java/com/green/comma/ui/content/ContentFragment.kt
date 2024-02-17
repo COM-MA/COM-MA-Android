@@ -12,9 +12,8 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.green.comma.databinding.FragmentContentBinding
-import com.green.comma.ui.FairytaleListItem
+import com.green.comma.ui.compose.FairytaleListItem
 import com.green.comma.ui.card.CardDetailActivity
-import com.green.comma.ui.home.HomeViewModel
 
 class ContentFragment : Fragment() {
 
