@@ -1,6 +1,6 @@
 package com.green.comma.data.repository
 
-import com.green.comma.data.response.card.ResponseLatestCardListDto
+import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.data.datasource.CardRemoteDataSource
 
 class CardRepository(
@@ -10,7 +10,10 @@ class CardRepository(
     /*suspend fun getLatestCardList(): BaseResponse<List<ResponseLatestCardListDto>> {
         return client.getLatestCardList()
     }*/
-    suspend fun getLatestCardList(): List<ResponseLatestCardListDto> {
+    suspend fun getLatestCardList(): List<ResponseCardListDto> {
         return cardService.getLatestCardList().data!!
+    }
+    suspend fun getAlphabetCardList(): List<ResponseCardListDto> {
+        return cardService.getAlphabetCardList().data!!
     }
 }

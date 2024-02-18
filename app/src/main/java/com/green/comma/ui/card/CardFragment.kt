@@ -2,11 +2,9 @@ package com.green.comma.ui.card
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -14,10 +12,8 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.green.comma.R
 import com.green.comma.databinding.FragmentCardBinding
 import com.green.comma.ui.compose.WordCardListItem
@@ -43,20 +39,27 @@ class CardFragment : Fragment() {
             input?.toString()?.let { viewModel.getUniversityList(it) }
         }*/
 
+        //cardViewModel.loadLatestCardList()
+
         _binding = FragmentCardBinding.inflate(inflater, container, false)
         val root: View = binding.root
         var columCount = 2
+        val alphaTypeStr = getString(R.string.card_tv_align_alphabetical)
+        val latestTypeStr = getString(R.string.card_tv_align_latest)
+        val tvCardAlignType = binding.tvCardAlignType
 
         cardViewModel.items.observe(viewLifecycleOwner) { it ->
+            println("data changed")
             binding.composeViewWordCard.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                println("compose changed1")
                 setContent {
                     LazyVerticalGrid(
                         modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.horizontal_padding)),
                         columns = GridCells.Fixed(columCount)
                     ) {
                         items(it.size) { item ->
-                            WordCardListItem(it[item].cardImageUrl, { moveToCardDetail() })
+                            WordCardListItem(it[item], { moveToCardDetail() })
                         }
                     }
                     DisposableEffect(Unit) {
@@ -64,18 +67,27 @@ class CardFragment : Fragment() {
                         onDispose {}
                     }
                 }
+                println("compose changed2")
             }
         }
 
-        val textView: TextView = binding.textDashboard
-        cardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        binding.btnCardAlign.setOnClickListener {
+            if(tvCardAlignType.text == alphaTypeStr){
+                println("알파벳순")
+                tvCardAlignType.text = latestTypeStr
+                cardViewModel.loadAlphabetCardList()
+            } else {
+                println("가나다순")
+                tvCardAlignType.text = alphaTypeStr
+                cardViewModel.loadLatestCardList()
+            }
         }
+
         return root
     }
 
     private fun moveToCardDetail() {
-        val intent = Intent(activity, CardDetailActivity::class.java) //fragment라서 activity intent와는 다른 방식
+        val intent = Intent(activity, CardDetailActivity::class.java)
         startActivity(intent)
     }
 
