@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">COM-MA</string>
 
-    <string name="title_home">Home</string>
-    <string name="title_card">Card</string>
-    <string name="title_camera">Camera</string>
-    <string name="title_content">Content</string>
-    <string name="title_user">User</string>
+    <string name="title_home">홈</string>
+    <string name="title_card">단어 카드</string>
+    <string name="title_camera">카메라 인식</string>
+    <string name="title_content">동화</string>
+    <string name="title_user">프로필</string>
 
     <string name="home_tv_title">님, 반가워요!</string>
     <string name="home_tv_word_card">단어 카드</string>
