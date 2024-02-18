@@ -11,12 +11,13 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.green.comma.MainActivity
 import com.green.comma.R
@@ -24,6 +25,10 @@ import com.green.comma.databinding.FragmentHomeBinding
 import com.green.comma.ui.compose.PreviewFairytaleListItem
 import com.green.comma.ui.compose.WordCardListItem
 import com.green.comma.ui.card.CardDetailActivity
+import com.green.comma.ui.card.CardViewModel
+import com.green.comma.ui.card.CardViewModelFactory
+import com.green.comma.ui.fairytale.FairytaleViewModel
+import com.green.comma.ui.fairytale.FairytaleViewModelFactory
 import com.green.comma.util.BottomNavigationHelper
 
 
@@ -31,6 +36,8 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(requireContext()) }
+    private val fairytaleViewModel: FairytaleViewModel by viewModels { FairytaleViewModelFactory(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,29 +82,27 @@ class HomeFragment : Fragment() {
         updateStatusBarColor(false, R.color.white)
     }
 
-    private fun updateStatusBarColor(isBright: Boolean, color: Int) { // Color must be in hexadecimal fromat
-        val mWindow = requireActivity().window
-        mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        mWindow.statusBarColor = ContextCompat.getColor(requireActivity(), color)
-        if(Build.VERSION.SDK_INT >= 23){
-            if(isBright) {
-                mWindow.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
-        }
-    }
-
     private fun setWordCardPreviewList(){
         val includeWordCardBinding = binding.includeHomeWordCard
 
-        includeWordCardBinding.composeViewHomePreviewList.apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                LazyRow(modifier = Modifier.padding(start = 20.dp)){
-                    items(10) {index ->
-                        WordCardListItem(painterResource(id = R.drawable.ic_bottom_nav_camera), { moveToCardDetail() })
+        cardViewModel.items.observe(viewLifecycleOwner) { it ->
+            println("data changed")
+            includeWordCardBinding.composeViewHomePreviewList.apply {
+                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                println("compose changed1")
+                var itemCount = if(it.size < 5) it.size else 5
+                setContent {
+                    LazyRow(modifier = Modifier.padding(start = 20.dp)){
+                        items(itemCount) { item ->
+                            WordCardListItem(it[item], { moveToCardDetail() })
+                        }
+                    }
+                    DisposableEffect(Unit) {
+                        cardViewModel.loadLatestCardList()
+                        onDispose {}
                     }
                 }
+                println("compose changed2")
             }
         }
 
@@ -109,13 +114,19 @@ class HomeFragment : Fragment() {
 
     private fun setFairytalePreviewList(){
         val includeFairytaleBinding = binding.includeHomePopularFairytale
-
-        includeFairytaleBinding.composeViewHomePreviewList.apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                LazyRow(modifier = Modifier.padding(start = 20.dp)){
-                    items(5) {index ->
-                        PreviewFairytaleListItem(painterResource(id = R.drawable.ic_bottom_nav_card_fill))
+        fairytaleViewModel.items.observe(viewLifecycleOwner) { it ->
+            includeFairytaleBinding.composeViewHomePreviewList.apply {
+                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                var itemCount = if(it.size < 4) it.size else 4
+                setContent {
+                    LazyRow(modifier = Modifier.padding(start = 20.dp)) {
+                        items(itemCount) { item ->
+                            PreviewFairytaleListItem(it[item].imgaeUrl)
+                        }
+                    }
+                    DisposableEffect(Unit) {
+                        fairytaleViewModel.loadFairytaleList()
+                        onDispose {}
                     }
                 }
             }
@@ -124,6 +135,18 @@ class HomeFragment : Fragment() {
         includeFairytaleBinding.btnMore.setOnClickListener{
             val mainActivity = activity as MainActivity
             BottomNavigationHelper.triggerMenuItemSelected(bottomNavigationView = mainActivity.getBottomNavigationView(), R.id.navigation_content)
+        }
+    }
+
+    private fun updateStatusBarColor(isBright: Boolean, color: Int) { // Color must be in hexadecimal fromat
+        val mWindow = requireActivity().window
+        mWindow.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        mWindow.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        mWindow.statusBarColor = ContextCompat.getColor(requireActivity(), color)
+        if(Build.VERSION.SDK_INT >= 23){
+            if(isBright) {
+                mWindow.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
         }
     }
 }
