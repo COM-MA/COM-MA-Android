@@ -23,12 +23,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.ui.theme.Lavender200
 import com.green.comma.ui.theme.Typography
 import com.green.comma.ui.theme.pretendard
 
 @Composable
-fun WordCardListItem(img: String, onClick: () -> Unit, modifier: Modifier = Modifier){
+fun WordCardListItem(data: ResponseCardListDto, onClick: () -> Unit, modifier: Modifier = Modifier){
     Surface(
         modifier = modifier
             .width(162.dp)
@@ -46,11 +47,11 @@ fun WordCardListItem(img: String, onClick: () -> Unit, modifier: Modifier = Modi
         ){
             AsyncImage(
                 modifier = modifier.height(77.dp),
-                model = img,
+                model = data.cardImageUrl,
                 contentDescription = "단어 이미지"
             )
             //Image(modifier = modifier.height(77.dp), painter = img, contentDescription = "단어 이미지")
-            Text(modifier = modifier.padding(0.dp, 6.dp), text = "호랑이", style = Typography.labelLarge)
+            Text(modifier = modifier.padding(0.dp, 6.dp), text = data.name, style = Typography.labelLarge)
             Surface(
                 modifier = modifier
                     .width(80.dp)
