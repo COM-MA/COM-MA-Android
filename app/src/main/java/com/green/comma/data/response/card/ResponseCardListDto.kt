@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ResponseLatestCardListDto(
+data class ResponseCardListDto(
     @SerialName("userCardId")
     val userCardId: Long,
     @SerialName("name")
