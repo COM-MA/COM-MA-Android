@@ -8,7 +8,7 @@ import com.green.comma.data.datasource.CardRemoteDataSource
 import com.green.comma.data.repository.CardRepository
 import retrofit2.create
 
-class ViewModelFactory( private val context: Context): ViewModelProvider.Factory {
+class CardViewModelFactory( private val context: Context): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {

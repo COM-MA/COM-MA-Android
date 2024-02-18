@@ -25,7 +25,8 @@ class CardFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    private val cardViewModel: CardViewModel by viewModels { ViewModelFactory(requireContext()) }
+    private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(requireContext()) }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
