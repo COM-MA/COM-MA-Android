@@ -2,11 +2,9 @@ package com.green.comma.ui.card
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.green.comma.R
-import com.green.comma.TTS
+import com.green.comma.util.Tts
 import com.green.comma.databinding.ActivityCardDetailBinding
-import com.green.comma.ui.WordCardView
 
 class CardDetailActivity : AppCompatActivity() {
 
@@ -20,7 +18,7 @@ class CardDetailActivity : AppCompatActivity() {
         binding = ActivityCardDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val tts = TTS(applicationContext)
+        val tts = Tts(applicationContext)
         tts.setTTS()
 
         /*binding.composeViewWordView.apply {

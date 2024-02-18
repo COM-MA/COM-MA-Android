@@ -1,11 +1,11 @@
-package com.green.comma
+package com.green.comma.util
 
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import java.util.Locale
 
-class TTS(val context: Context) {
+class Tts(val context: Context) {
     private var textToSpeech: TextToSpeech? = null
     fun setTTS(){
         textToSpeech = TextToSpeech(context, TextToSpeech.OnInitListener {

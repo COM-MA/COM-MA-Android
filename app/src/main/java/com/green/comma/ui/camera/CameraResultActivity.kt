@@ -2,11 +2,9 @@ package com.green.comma.ui.camera
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.green.comma.R
-import com.green.comma.TTS
+import com.green.comma.util.Tts
 import com.green.comma.databinding.ActivityCameraResultBinding
-import com.green.comma.ui.WordCardView
 
 class CameraResultActivity : AppCompatActivity() {
 
@@ -18,7 +16,7 @@ class CameraResultActivity : AppCompatActivity() {
         binding = ActivityCameraResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val tts = TTS(applicationContext)
+        val tts = Tts(applicationContext)
         tts.setTTS()
 
         var wordText = binding.textWord.text.toString()
