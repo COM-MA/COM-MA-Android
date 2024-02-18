@@ -13,9 +13,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 @Composable
-fun PreviewFairytaleListItem(img: Painter){
+fun PreviewFairytaleListItem(imgUrl: String?){
     Surface(
         modifier = Modifier
             .width(294.dp)
@@ -27,6 +28,10 @@ fun PreviewFairytaleListItem(img: Painter){
         shadowElevation = 4.dp,
         onClick = {}
     ) {
-        Image(contentScale = ContentScale.FillWidth, painter = img, contentDescription = "동화 썸네일")
+        AsyncImage(
+            contentScale = ContentScale.Fit,
+            model = imgUrl,
+            contentDescription = "동화 썸네일"
+        )
     }
 }

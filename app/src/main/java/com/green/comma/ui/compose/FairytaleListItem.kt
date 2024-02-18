@@ -1,6 +1,5 @@
 package com.green.comma.ui.compose
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,25 +15,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.green.comma.R
+import coil.compose.AsyncImage
+import com.green.comma.data.response.fairytale.ResponseFairytaleListDto
 import com.green.comma.ui.theme.Gray700
 import com.green.comma.ui.theme.Typography
 import com.green.comma.ui.theme.pretendard
 
 @Composable
-fun FairytaleListItem(modifier: Modifier) {
-    val ftData = FairytaleData(
-        painterResource(R.drawable.ic_bottom_nav_camera),
-        "꼭 잡아!", "한국농아인협회", 2024, 6)
-    val info = ftData.source + " | " + ftData.year + " | " + ftData.length + "분"
+fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
+    val info = data.channelName + " | " + data.year + " | " + data.time + "분"
 
     val orange500 = Color(0xFFFF8E3D)
     val orange200 = Color(0xFFFFEDE0)
@@ -52,9 +47,12 @@ fun FairytaleListItem(modifier: Modifier) {
         onClick = { }
     ) {
         Row(modifier = modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-            Image(modifier = modifier
-                .height(66.dp)
-                .width(66.dp), painter = ftData.img, contentScale = ContentScale.Fit, contentDescription = "동화 이미지")
+            AsyncImage(
+                modifier = modifier.height(66.dp).width(66.dp),
+                model = data.imgaeUrl,
+                contentScale = ContentScale.Fit,
+                contentDescription = "동화 이미지"
+            )
             Column(
                 modifier = modifier
                     .fillMaxSize()
@@ -64,7 +62,7 @@ fun FairytaleListItem(modifier: Modifier) {
                 Row(modifier = modifier.padding(bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         modifier = modifier.padding(end = 4.dp),
-                        text = ftData.title,
+                        text = data.title,
                         style = Typography.labelMedium
                     )
                     tagElem("자막", orange200, orange500)
@@ -104,5 +102,3 @@ fun tagElem(tag: String, colorBg: Color, colorTxt: Color){
         )
     }
 }
-
-data class FairytaleData(var img: Painter, var title: String, var source: String, val year: Int, val length: Int)

@@ -25,9 +25,9 @@
 
     <fragment
         android:id="@+id/navigation_content"
-        android:name="com.green.comma.ui.content.ContentFragment"
+        android:name="com.green.comma.ui.fairytale.FairytaleFragment"
         android:label="@string/title_content"
-        tools:layout="@layout/fragment_content" />
+        tools:layout="@layout/fragment_fairytale" />
 
     <fragment
         android:id="@+id/navigation_user"
