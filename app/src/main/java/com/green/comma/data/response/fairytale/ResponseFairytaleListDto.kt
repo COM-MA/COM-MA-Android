@@ -10,8 +10,8 @@ data class ResponseFairytaleListDto(
     val id: Long,
     @SerialName("title")
     val title: String,
-    @SerialName("imgaeUrl")
-    val imgaeUrl: String,
+    @SerialName("imageUrl")
+    val imageUrl: String,
     @SerialName("channelName")
     val channelName: String,
     @SerialName("year")

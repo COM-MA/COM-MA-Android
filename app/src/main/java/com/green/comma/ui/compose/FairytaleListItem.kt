@@ -49,7 +49,7 @@ fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
         Row(modifier = modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
                 modifier = modifier.height(66.dp).width(66.dp),
-                model = data.imgaeUrl,
+                model = data.imageUrl,
                 contentScale = ContentScale.Fit,
                 contentDescription = "동화 이미지"
             )

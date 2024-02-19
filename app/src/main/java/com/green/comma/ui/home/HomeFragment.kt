@@ -121,7 +121,7 @@ class HomeFragment : Fragment() {
                 setContent {
                     LazyRow(modifier = Modifier.padding(start = 20.dp)) {
                         items(itemCount) { item ->
-                            PreviewFairytaleListItem(it[item].imgaeUrl)
+                            PreviewFairytaleListItem(it[item].imageUrl)
                         }
                     }
                     DisposableEffect(Unit) {
