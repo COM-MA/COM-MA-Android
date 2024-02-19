@@ -27,6 +27,9 @@
     <string name="content_list_title">동화 리스트</string>
     <string name="content_list_description">영상으로 재생되는 동화로 재미있게 학습해요!</string>
 
+    <string name="fairytale_detail_description_title">상세내용</string>
+    <string name="fairytale_detail_similar_title">유사한 동화 추천</string>
+
     <string name="camera_detail_btn_quit">나가기</string>
     <string name="camera_detail_btn_create_card">단어카드 생성</string>
     <string name="camera_detail_btn_recog_again">다시 인식하기</string>
