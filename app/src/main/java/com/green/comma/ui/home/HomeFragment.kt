@@ -60,8 +60,9 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    private fun moveToCardDetail() {
-        val intent = Intent(activity, CardDetailActivity::class.java) //fragment라서 activity intent와는 다른 방식
+    private fun moveToCardDetail(userCardId: Long) {
+        val intent = Intent(activity, CardDetailActivity::class.java)
+        intent.putExtra("userCardId", userCardId)
         startActivity(intent)
     }
 
@@ -85,7 +86,7 @@ class HomeFragment : Fragment() {
     private fun setWordCardPreviewList(){
         val includeWordCardBinding = binding.includeHomeWordCard
 
-        cardViewModel.items.observe(viewLifecycleOwner) { it ->
+        cardViewModel.cardListItems.observe(viewLifecycleOwner) { it ->
             println("data changed")
             includeWordCardBinding.composeViewHomePreviewList.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -94,7 +95,7 @@ class HomeFragment : Fragment() {
                 setContent {
                     LazyRow(modifier = Modifier.padding(start = 20.dp)){
                         items(itemCount) { item ->
-                            WordCardListItem(it[item], { moveToCardDetail() })
+                            WordCardListItem(it[item], { moveToCardDetail(it[item].userCardId) })
                         }
                     }
                     DisposableEffect(Unit) {

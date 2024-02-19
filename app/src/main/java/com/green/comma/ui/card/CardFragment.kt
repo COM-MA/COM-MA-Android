@@ -49,7 +49,7 @@ class CardFragment : Fragment() {
         val latestTypeStr = getString(R.string.card_tv_align_latest)
         val tvCardAlignType = binding.tvCardAlignType
 
-        cardViewModel.items.observe(viewLifecycleOwner) { it ->
+        cardViewModel.cardListItems.observe(viewLifecycleOwner) { it ->
             println("data changed")
             binding.composeViewWordCard.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -60,7 +60,7 @@ class CardFragment : Fragment() {
                         columns = GridCells.Fixed(columCount)
                     ) {
                         items(it.size) { item ->
-                            WordCardListItem(it[item], { moveToCardDetail() })
+                            WordCardListItem(it[item], { moveToCardDetail(it[item].userCardId) })
                         }
                     }
                     DisposableEffect(Unit) {
@@ -87,8 +87,9 @@ class CardFragment : Fragment() {
         return root
     }
 
-    private fun moveToCardDetail() {
+    private fun moveToCardDetail(userCardId: Long) {
         val intent = Intent(activity, CardDetailActivity::class.java)
+        intent.putExtra("userCardId", userCardId)
         startActivity(intent)
     }
 
