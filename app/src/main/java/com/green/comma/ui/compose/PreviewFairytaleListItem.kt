@@ -18,8 +18,7 @@ fun PreviewFairytaleListItem(imgUrl: String?){
         modifier = Modifier
             .width(294.dp)
             .height(124.dp)
-            .clickable {  }
-            .padding(10.dp),
+            .clickable {  },
         color = Color.White,
         onClick = {}
     ) {

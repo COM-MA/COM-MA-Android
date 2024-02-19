@@ -16,7 +16,7 @@ import com.green.comma.ui.compose.theme.pretendard
 @Composable
 fun FairytaleTagElem(tag: String, colorBg: Color, colorTxt: Color){
     Surface(
-        modifier = Modifier.padding(horizontal = 4.dp),
+        modifier = Modifier.padding(end = 8.dp),
         color = colorBg,
         shape = RoundedCornerShape(4.dp)
     ) {
