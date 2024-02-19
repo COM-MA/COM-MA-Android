@@ -39,7 +39,7 @@ import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
+fun FairytaleListItem(data: ResponseFairytaleListDto, onClick: () -> Unit, modifier: Modifier) {
     val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
     val time: LocalTime = LocalTime.parse(data.time, formatter)
 
@@ -55,7 +55,7 @@ fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
                 spotColor = Gray500
             ),
         color = Color.White,
-        onClick = { }
+        onClick = onClick
     ) {
         Row(modifier = modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
@@ -72,13 +72,15 @@ fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
             ){
                 Row(modifier = modifier.padding(bottom = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        modifier = modifier.padding(end = 4.dp),
+                        modifier = modifier.padding(end = 8.dp),
                         maxLines = 1,
                         text = data.title,
                         style = Typography.labelMedium
                     )
-                    FairytaleTagElem("자막", Orange200, Orange500)
-                    FairytaleTagElem("수화", Green200, Green500)
+                    if(data.subtitleTag)
+                        FairytaleTagElem("자막", Orange200, Orange500)
+                    if(data.signTag)
+                        FairytaleTagElem("수화", Green200, Green500)
                 }
                 Text(
                     text = info,

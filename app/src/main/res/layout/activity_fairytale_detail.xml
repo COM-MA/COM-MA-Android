@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +10,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:contentInsetStart="0dp">
+        app:contentInsetStart="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/youtube_player_view"
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -35,15 +34,28 @@
         </FrameLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingTop="20dp"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/horizontal_padding"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/youtube_player_view">
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/compose_view_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,55 +63,51 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <androidx.compose.ui.platform.ComposeView
-                android:id="@+id/compose_view_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"/>
-
             <TextView
                 android:id="@+id/tv_fairytale_title"
+                style="@style/bold_26_900"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                style="@style/bold_26_900"
-                android:text="TextView" />
+                android:maxLines="1"
+                android:layout_marginRight="8dp"/>
 
             <TextView
                 android:id="@+id/tv_fairytale_time"
+                style="@style/medium_18_900"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                style="@style/medium_18_900"
-                android:textColor="@color/lavender_500"
-                android:text="TextView" />
+                android:textColor="@color/lavender_500" />
         </LinearLayout>
 
         <TextView
+            style="@style/medium_18_900"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/medium_18_900"
-            android:layout_marginVertical="4dp"
+            android:layout_marginVertical="6dp"
             android:text="@string/fairytale_detail_description_title" />
 
         <TextView
             android:id="@+id/tv_fairytale_description"
+            style="@style/regular_16_900"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            style="@style/regular_16_900"/>
+            android:breakStrategy="high_quality"
+            android:hyphenationFrequency="full"
+            android:lineHeight="22dp"/>
 
         <TextView
+            style="@style/bold_18_900"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            style="@style/bold_18_900"
+            android:layout_marginBottom="16dp"
             android:text="@string/fairytale_detail_similar_title" />
 
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/compose_view_fairytale_recommend"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

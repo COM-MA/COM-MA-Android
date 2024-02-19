@@ -115,7 +115,7 @@ class HomeFragment : Fragment() {
 
     private fun setFairytalePreviewList(){
         val includeFairytaleBinding = binding.includeHomePopularFairytale
-        fairytaleViewModel.items.observe(viewLifecycleOwner) { it ->
+        fairytaleViewModel.fairytaleItems.observe(viewLifecycleOwner) { it ->
             includeFairytaleBinding.composeViewHomePreviewList.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 var itemCount = if(it.size < 4) it.size else 4
