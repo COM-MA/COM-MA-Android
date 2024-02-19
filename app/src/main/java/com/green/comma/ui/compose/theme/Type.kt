@@ -1,4 +1,4 @@
-package com.green.comma.ui.theme
+package com.green.comma.ui.compose.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
