@@ -1,5 +1,7 @@
 package com.green.comma.ui.compose
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
@@ -23,32 +26,39 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.green.comma.data.response.fairytale.ResponseFairytaleListDto
+import com.green.comma.ui.theme.Gray500
 import com.green.comma.ui.theme.Gray700
+import com.green.comma.ui.theme.Green200
+import com.green.comma.ui.theme.Green500
+import com.green.comma.ui.theme.Orange200
+import com.green.comma.ui.theme.Orange500
 import com.green.comma.ui.theme.Typography
 import com.green.comma.ui.theme.pretendard
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
-    val info = data.channelName + " | " + data.year + " | " + data.time + "분"
+    val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+    val time: LocalTime = LocalTime.parse(data.time, formatter)
 
-    val orange500 = Color(0xFFFF8E3D)
-    val orange200 = Color(0xFFFFEDE0)
-
-    val green500 = Color(0xFF6FD032)
-    val green200 = Color(0xFFE8F8DE)
+    val info = data.channelName + " | " + data.year + " | " + time.minute + "분"
 
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .height(114.dp)
-            .padding(horizontal = 30.dp, vertical = 5.dp),
+            .height(124.dp)
+            .padding(horizontal = 30.dp, vertical = 6.dp)
+            .shadow(elevation = 4.dp,
+                ambientColor = Gray500,
+                spotColor = Gray500),
         color = Color.White,
-        shadowElevation = 4.dp,
         onClick = { }
     ) {
         Row(modifier = modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
-                modifier = modifier.height(66.dp).width(66.dp),
+                modifier = modifier.height(80.dp).width(80.dp),
                 model = data.imageUrl,
                 contentScale = ContentScale.Fit,
                 contentDescription = "동화 이미지"
@@ -59,14 +69,15 @@ fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
                     .padding(start = 16.dp),
                 verticalArrangement = Arrangement.Center
             ){
-                Row(modifier = modifier.padding(bottom = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+                Row(modifier = modifier.padding(bottom = 8.dp), verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         modifier = modifier.padding(end = 4.dp),
+                        maxLines = 1,
                         text = data.title,
                         style = Typography.labelMedium
                     )
-                    tagElem("자막", orange200, orange500)
-                    tagElem("수화", green200, green500)
+                    FairytaleTagElem("자막", Orange200, Orange500)
+                    FairytaleTagElem("수화", Green200, Green500)
                 }
                 Text(
                     text = info,
@@ -79,26 +90,5 @@ fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
                     textAlign = TextAlign.Center)
             }
         }
-    }
-}
-
-@Composable
-fun tagElem(tag: String, colorBg: Color, colorTxt: Color){
-    Surface(
-        modifier = Modifier.padding(horizontal = 4.dp),
-        color = colorBg,
-        shape = RoundedCornerShape(4.dp)
-    ) {
-        Text(
-            modifier = Modifier
-                .padding(8.dp, 2.dp),
-            text = tag,
-            style = TextStyle(
-                fontFamily = pretendard,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
-                color = colorTxt
-            )
-        )
     }
 }
