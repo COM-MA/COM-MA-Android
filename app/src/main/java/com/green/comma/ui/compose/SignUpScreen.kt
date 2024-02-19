@@ -28,11 +28,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.green.comma.R
-import com.green.comma.ui.theme.Gray100
-import com.green.comma.ui.theme.Gray700
-import com.green.comma.ui.theme.Gray900
-import com.green.comma.ui.theme.Lavender500
-import com.green.comma.ui.theme.Typography
+import com.green.comma.ui.compose.theme.Gray100
+import com.green.comma.ui.compose.theme.Gray700
+import com.green.comma.ui.compose.theme.Gray900
+import com.green.comma.ui.compose.theme.Lavender500
+import com.green.comma.ui.compose.theme.Typography
 
 @Composable
 fun SignUpScreen(onClick: () -> Unit) {

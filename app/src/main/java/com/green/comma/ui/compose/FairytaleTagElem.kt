@@ -11,7 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.green.comma.ui.theme.pretendard
+import com.green.comma.ui.compose.theme.pretendard
 
 @Composable
 fun FairytaleTagElem(tag: String, colorBg: Color, colorTxt: Color){

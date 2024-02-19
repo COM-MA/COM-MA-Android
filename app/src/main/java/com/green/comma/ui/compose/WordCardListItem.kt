@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.green.comma.data.response.card.ResponseCardListDto
-import com.green.comma.ui.theme.Gray500
-import com.green.comma.ui.theme.Lavender200
-import com.green.comma.ui.theme.Typography
-import com.green.comma.ui.theme.pretendard
+import com.green.comma.ui.compose.theme.Gray500
+import com.green.comma.ui.compose.theme.Lavender200
+import com.green.comma.ui.compose.theme.Typography
+import com.green.comma.ui.compose.theme.pretendard
 
 @Composable
 fun WordCardListItem(data: ResponseCardListDto, onClick: () -> Unit, modifier: Modifier = Modifier){

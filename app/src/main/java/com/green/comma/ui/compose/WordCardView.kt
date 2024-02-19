@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.green.comma.R
-import com.green.comma.ui.theme.Lavender200
-import com.green.comma.ui.theme.pretendard
+import com.green.comma.ui.compose.theme.Lavender200
+import com.green.comma.ui.compose.theme.pretendard
 @Composable
 fun WordCardView(onClick: () -> Unit, wordText: String) {
     val img = painterResource(id = R.drawable.ic_bottom_nav_camera)

@@ -23,8 +23,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.green.comma.R
-import com.green.comma.ui.theme.Gray900
-import com.green.comma.ui.theme.Typography
+import com.green.comma.ui.compose.theme.Gray900
+import com.green.comma.ui.compose.theme.Typography
 
 @Composable
 fun SignInScreen(onClick: () -> Unit) {

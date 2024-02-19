@@ -26,14 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.green.comma.data.response.fairytale.ResponseFairytaleListDto
-import com.green.comma.ui.theme.Gray500
-import com.green.comma.ui.theme.Gray700
-import com.green.comma.ui.theme.Green200
-import com.green.comma.ui.theme.Green500
-import com.green.comma.ui.theme.Orange200
-import com.green.comma.ui.theme.Orange500
-import com.green.comma.ui.theme.Typography
-import com.green.comma.ui.theme.pretendard
+import com.green.comma.ui.compose.theme.Gray500
+import com.green.comma.ui.compose.theme.Gray700
+import com.green.comma.ui.compose.theme.Green200
+import com.green.comma.ui.compose.theme.Green500
+import com.green.comma.ui.compose.theme.Orange200
+import com.green.comma.ui.compose.theme.Orange500
+import com.green.comma.ui.compose.theme.Typography
+import com.green.comma.ui.compose.theme.pretendard
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -52,7 +52,8 @@ fun FairytaleListItem(data: ResponseFairytaleListDto, modifier: Modifier) {
             .padding(horizontal = 30.dp, vertical = 6.dp)
             .shadow(elevation = 4.dp,
                 ambientColor = Gray500,
-                spotColor = Gray500),
+                spotColor = Gray500
+            ),
         color = Color.White,
         onClick = { }
     ) {
