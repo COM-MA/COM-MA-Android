@@ -6,22 +6,26 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.green.comma.R
+import com.green.comma.data.response.card.ResponseCardDetailDto
 import com.green.comma.util.Tts
 import com.green.comma.databinding.ActivityCardDetailBinding
 
 class CardDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCardDetailBinding
-
+    private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(applicationContext) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_detail)
-        var wordText = "호랑이"
-
         binding = ActivityCardDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         val tts = Tts(applicationContext)
+        val userCardId = intent.getLongExtra("userCardId", -1)
+
+        if(!userCardId.equals(-1)){
+            cardViewModel.loadCardDetail(userCardId)
+        }
+
         tts.setTTS()
 
         cardViewModel.cardDetailItem.observe(this, Observer { item ->

@@ -6,12 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.data.repository.CardRepository
+import com.green.comma.data.response.card.ResponseCardDetailDto
 import kotlinx.coroutines.launch
 
 class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
 
-    private val _items = MutableLiveData<List<ResponseCardListDto>>()
-    val items: LiveData<List<ResponseCardListDto>> = _items
+    private val _cardListItems = MutableLiveData<List<ResponseCardListDto>>()
+    val cardListItems: LiveData<List<ResponseCardListDto>> = _cardListItems
+
+    private val _cardDetailItem = MutableLiveData<ResponseCardDetailDto>()
+    val cardDetailItem: LiveData<ResponseCardDetailDto> = _cardDetailItem
+
 
     init {
         loadLatestCardList()
@@ -24,14 +29,21 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
     fun loadLatestCardList() {
         viewModelScope.launch {
             val latestCardList = cardRepository.getLatestCardList()
-            _items.value = latestCardList
+            _cardListItems.value = latestCardList
         }
     }
 
     fun loadAlphabetCardList() {
         viewModelScope.launch {
             val alphabetCardList = cardRepository.getAlphabetCardList()
-            _items.value = alphabetCardList
+            _cardListItems.value = alphabetCardList
+        }
+    }
+
+    fun loadCardDetail(userCardId: Long) {
+        viewModelScope.launch {
+            val alphabetCardList = cardRepository.getCardDetail(userCardId)
+            _cardDetailItem.value = alphabetCardList
         }
     }
 
