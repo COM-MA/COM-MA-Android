@@ -2,6 +2,7 @@ package com.green.comma.ui.card
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -41,7 +42,24 @@ class CardDetailActivity : AppCompatActivity() {
     private fun setCard(item: ResponseCardDetailDto){
         Glide.with(this)
             .load(item.cardImageUrl)
-            .into(binding.imgVCardImage)
+            .into(binding.imgCardImage)
+
+        Glide.with(this)
+            .load(item.signImageUrl)
+            .into(binding.imgCardSign)
+
         binding.tvCardName.text = item.name
+
+        binding.btnCardReverse.setOnClickListener{
+            if(binding.imgCardSign.visibility == View.INVISIBLE) {
+                binding.tvCardName.visibility = View.INVISIBLE
+                binding.imgCardImage.visibility = View.INVISIBLE
+                binding.imgCardSign.visibility = View.VISIBLE
+            } else {
+                binding.tvCardName.visibility = View.VISIBLE
+                binding.imgCardImage.visibility = View.VISIBLE
+                binding.imgCardSign.visibility = View.INVISIBLE
+            }
+        }
     }
 }
