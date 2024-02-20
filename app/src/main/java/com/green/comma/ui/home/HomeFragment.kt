@@ -25,10 +25,6 @@ import com.green.comma.databinding.FragmentHomeBinding
 import com.green.comma.ui.compose.PreviewFairytaleListItem
 import com.green.comma.ui.compose.WordCardListItem
 import com.green.comma.ui.card.CardDetailActivity
-import com.green.comma.ui.card.CardViewModel
-import com.green.comma.ui.card.CardViewModelFactory
-import com.green.comma.ui.fairytale.FairytaleViewModel
-import com.green.comma.ui.fairytale.FairytaleViewModelFactory
 import com.green.comma.util.BottomNavigationHelper
 
 
@@ -36,16 +32,13 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(requireContext()) }
-    private val fairytaleViewModel: FairytaleViewModel by viewModels { FairytaleViewModelFactory(requireContext()) }
+    private val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val userViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -54,7 +47,7 @@ class HomeFragment : Fragment() {
         setFairytalePreviewList()
 
         val textView: TextView = binding.textHome
-        userViewModel.text.observe(viewLifecycleOwner) {
+        homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
@@ -86,20 +79,19 @@ class HomeFragment : Fragment() {
     private fun setWordCardPreviewList(){
         val includeWordCardBinding = binding.includeHomeWordCard
 
-        cardViewModel.cardListItems.observe(viewLifecycleOwner) { it ->
-            println("data changed")
+        homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
+            val itemCount = 5
             includeWordCardBinding.composeViewHomePreviewList.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 println("compose changed1")
-                var itemCount = if(it.size < 5) it.size else 5
                 setContent {
                     LazyRow(modifier = Modifier.padding(start = 20.dp)){
                         items(itemCount) { item ->
-                            WordCardListItem(it[item], { moveToCardDetail(it[item].userCardId) }, false)
+                            WordCardListItem(it.top5Cards[item], { moveToCardDetail(it.top5Cards[item].userCardId) }, false)
                         }
                     }
                     DisposableEffect(Unit) {
-                        cardViewModel.loadLatestCardList()
+                        homeViewModel.loadHomeData()
                         onDispose {}
                     }
                 }
@@ -115,18 +107,18 @@ class HomeFragment : Fragment() {
 
     private fun setFairytalePreviewList(){
         val includeFairytaleBinding = binding.includeHomePopularFairytale
-        fairytaleViewModel.fairytaleItems.observe(viewLifecycleOwner) { it ->
+        homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
             includeFairytaleBinding.composeViewHomePreviewList.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-                var itemCount = if(it.size < 4) it.size else 4
+                var itemCount = 2
                 setContent {
                     LazyRow(modifier = Modifier.padding(start = 20.dp)) {
                         items(itemCount) { item ->
-                            PreviewFairytaleListItem(it[item].imageUrl)
+                            PreviewFairytaleListItem(it.top2Fairytales[item].recommendImageUrl)
                         }
                     }
                     DisposableEffect(Unit) {
-                        fairytaleViewModel.loadFairytaleList()
+                        homeViewModel.loadHomeData()
                         onDispose {}
                     }
                 }
