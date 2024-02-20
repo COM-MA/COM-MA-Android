@@ -42,8 +42,8 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
 
     fun loadCardDetail(userCardId: Long) {
         viewModelScope.launch {
-            val alphabetCardList = cardRepository.getCardDetail(userCardId)
-            _cardDetailItem.value = alphabetCardList
+            val cardDetail = cardRepository.getCardDetail(userCardId)
+            _cardDetailItem.value = cardDetail
         }
     }
 
