@@ -79,6 +79,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/img_card"
             android:layout_width="220dp"
             android:layout_height="260dp"
             android:layout_gravity="center"
@@ -95,6 +96,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/img_sign"
                 android:layout_width="150dp"
                 android:layout_height="190dp"
                 android:src="@drawable/img_sample"
@@ -120,7 +122,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="8dp"
                         android:fontFamily="@font/pretendard_bold"
-                        android:text="우유"
                         android:textAlignment="center"
                         android:textColor="@color/gray_900"
                         android:textSize="26dp" />
@@ -159,6 +160,7 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginHorizontal="63dp"
+        android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

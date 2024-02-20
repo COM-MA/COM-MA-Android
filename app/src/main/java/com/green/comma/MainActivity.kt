@@ -1,5 +1,6 @@
 package com.green.comma
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.green.comma.databinding.ActivityMainBinding
+import com.green.comma.ui.camera.CameraActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +30,11 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_card, R.id.navigation_camera, R.id.navigation_content, R.id.navigation_user
             )
         )
+
+        binding.btnCamera.setOnClickListener{
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+        }
 
         //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)

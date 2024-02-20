@@ -3,6 +3,7 @@ package com.green.comma.data.repository
 import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.data.datasource.CardRemoteDataSource
 import com.green.comma.data.response.card.ResponseCardDetailDto
+import com.green.comma.data.response.card.ResponseCardRecogDetailDto
 
 class CardRepository(
     private val cardRemoteDataSource: CardRemoteDataSource
@@ -15,5 +16,8 @@ class CardRepository(
     }
     suspend fun getCardDetail(userCardId: Long): ResponseCardDetailDto {
         return cardRemoteDataSource.getCardDetail(userCardId).data!!
+    }
+    suspend fun getCardRecogDetail(name:String): ResponseCardRecogDetailDto {
+        return cardRemoteDataSource.getCardRecogDetail(name).data!!
     }
 }

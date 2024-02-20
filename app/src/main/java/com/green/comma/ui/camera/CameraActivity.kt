@@ -53,6 +53,7 @@ class CameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         initClassifier()
         checkPermission()
@@ -182,10 +183,6 @@ class CameraActivity : AppCompatActivity() {
 
         YuvToRgbConverter.yuvToRgb(this, image, rgbFrameBitmap!!)
 
-        binding.btnPrint.setOnClickListener{
-            println(count)
-        }
-
         handler?.post {
             if (::classifier.isInitialized && classifier.isInitialized()) {
                 val output = classifier.classify(rgbFrameBitmap!!, sensorOrientation)
@@ -199,6 +196,7 @@ class CameraActivity : AppCompatActivity() {
                         var intent = Intent(this, CameraResultActivity::class.java)
                         intent.putExtra("result", recogCount.maxCount())
                         startActivity(intent)
+                        finish()
                     }
                 }
             }
@@ -277,7 +275,6 @@ class CameraActivity : AppCompatActivity() {
                 maxCount = count
                 maxName = name
             }
-            println(name)
         }
     }
 }

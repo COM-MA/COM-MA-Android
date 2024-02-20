@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.data.repository.CardRepository
 import com.green.comma.data.response.card.ResponseCardDetailDto
+import com.green.comma.data.response.card.ResponseCardRecogDetailDto
 import kotlinx.coroutines.launch
 
 class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
@@ -17,6 +18,8 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
     private val _cardDetailItem = MutableLiveData<ResponseCardDetailDto>()
     val cardDetailItem: LiveData<ResponseCardDetailDto> = _cardDetailItem
 
+    private val _cardRecogDetailItem = MutableLiveData<ResponseCardRecogDetailDto>()
+    val cardRecogDetailItem: LiveData<ResponseCardRecogDetailDto> = _cardRecogDetailItem
 
     init {
         loadLatestCardList()
@@ -44,6 +47,13 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
         viewModelScope.launch {
             val cardDetail = cardRepository.getCardDetail(userCardId)
             _cardDetailItem.value = cardDetail
+        }
+    }
+
+    fun loadCardRecogDetail(name: String) {
+        viewModelScope.launch {
+            val cardRecogDetail = cardRepository.getCardRecogDetail(name)
+            _cardRecogDetailItem.value = cardRecogDetail
         }
     }
 
