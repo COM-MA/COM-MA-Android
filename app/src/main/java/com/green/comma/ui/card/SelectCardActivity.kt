@@ -1,21 +1,20 @@
 package com.green.comma.ui.card
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material3.Card
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.dimensionResource
-import androidx.lifecycle.Observer
 import com.green.comma.R
-import com.green.comma.databinding.ActivityCardDetailBinding
 import com.green.comma.databinding.ActivitySelectCardBinding
 import com.green.comma.ui.compose.WordCardListItem
+import com.green.comma.ui.quiz.QuizActivity
 
 class SelectCardActivity : AppCompatActivity() {
 
@@ -28,9 +27,24 @@ class SelectCardActivity : AppCompatActivity() {
         binding = ActivitySelectCardBinding.inflate(layoutInflater)
 
         CardSelect.resetList()
+        setCardList()
 
+        binding.btnMakeQuiz.setOnClickListener {
+            val list = CardSelect.getSelectedCardList().toTypedArray().toLongArray()
+            if(list.isNotEmpty()){
+                val intent = Intent(this, QuizActivity::class.java)
+                intent.putExtra("selectedList", list)
+                startActivity(intent)
+                finish()
+            }
+        }
+
+
+        setContentView(binding.root)
+    }
+
+    private fun setCardList(){
         var columCount = 2
-
         cardViewModel.cardListItems.observe(this) {
             binding.composeViewWordCard.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -50,8 +64,5 @@ class SelectCardActivity : AppCompatActivity() {
                 }
             }
         }
-
-
-        setContentView(binding.root)
     }
 }

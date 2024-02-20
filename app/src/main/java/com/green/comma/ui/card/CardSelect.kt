@@ -9,6 +9,10 @@ object CardSelect {
         else cardList.remove(userCardId)
     }
 
+    fun getSelectedCardList(): MutableList<Long> {
+        return cardList
+    }
+
     fun printCard(){
         println(cardList)
     }
