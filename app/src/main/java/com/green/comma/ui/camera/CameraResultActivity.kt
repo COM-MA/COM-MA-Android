@@ -16,6 +16,8 @@ class CameraResultActivity : AppCompatActivity() {
         binding = ActivityCameraResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        println(intent.getStringExtra("result"))
+
         val tts = Tts(applicationContext)
         tts.setTTS()
 
