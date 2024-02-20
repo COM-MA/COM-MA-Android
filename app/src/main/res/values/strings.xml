@@ -8,6 +8,7 @@
     <string name="title_user">프로필</string>
 
     <string name="home_tv_title">님, 반가워요!</string>
+    <string name="home_tv_event_cheering">오늘도 한판 채우기!</string>
     <string name="home_tv_word_card">단어 카드</string>
     <string name="home_tv_word_card_description">필요한 단어들을 바로바로 확인해요!</string>
     <string name="home_tv_watch_popular_fairytale">인기 동화 보기</string>

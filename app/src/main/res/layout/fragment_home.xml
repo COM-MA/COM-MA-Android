@@ -46,7 +46,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="@dimen/horizontal_padding"
+                        android:paddingHorizontal="@dimen/horizontal_padding"
+                        android:paddingVertical="14dp"
                         app:layout_collapseMode="parallax">
                         <TextView
                             android:id="@+id/text_home"
@@ -55,6 +56,18 @@
                             android:fontFamily="@font/pretendard_bold"
                             android:textColor="@color/white"
                             android:textSize="26sp" />
+                        <TextView
+                            android:id="@+id/text_home2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/bold_16_900"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="5dp"
+                            android:background="@drawable/shape_tv_background"
+                            android:text="@string/home_tv_event_cheering"
+                            android:textColor="@color/white"
+                            android:layout_gravity="end"/>
+
                     </LinearLayout>
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
