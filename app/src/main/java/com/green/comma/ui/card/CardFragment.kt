@@ -60,7 +60,7 @@ class CardFragment : Fragment() {
                         columns = GridCells.Fixed(columCount)
                     ) {
                         items(it.size) { item ->
-                            WordCardListItem(it[item], { moveToCardDetail(it[item].userCardId) })
+                            WordCardListItem(it[item], { moveToCardDetail(it[item].userCardId) }, false)
                         }
                     }
                     DisposableEffect(Unit) {
@@ -81,6 +81,13 @@ class CardFragment : Fragment() {
                 println("가나다순")
                 tvCardAlignType.text = alphaTypeStr
                 cardViewModel.loadLatestCardList()
+            }
+        }
+
+        binding.includeCardToolbar.btnText.setOnClickListener {
+            activity?.let{
+                val intent = Intent(context, SelectCardActivity::class.java)
+                startActivity(intent)
             }
         }
 

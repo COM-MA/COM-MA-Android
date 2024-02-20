@@ -95,7 +95,7 @@ class HomeFragment : Fragment() {
                 setContent {
                     LazyRow(modifier = Modifier.padding(start = 20.dp)){
                         items(itemCount) { item ->
-                            WordCardListItem(it[item], { moveToCardDetail(it[item].userCardId) })
+                            WordCardListItem(it[item], { moveToCardDetail(it[item].userCardId) }, false)
                         }
                     }
                     DisposableEffect(Unit) {
