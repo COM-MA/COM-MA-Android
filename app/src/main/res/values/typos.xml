@@ -12,6 +12,12 @@
         <item name = "android:textColor">@color/gray_900</item>
     </style>
 
+    <style name = "bold_16_900">
+        <item name = "android:fontFamily">@font/pretendard_bold</item>
+        <item name = "android:textSize">16sp</item>
+        <item name = "android:textColor">@color/gray_900</item>
+    </style>
+
     <style name = "bold_14_900">
         <item name = "android:fontFamily">@font/pretendard_bold</item>
         <item name = "android:textSize">14sp</item>
@@ -27,6 +33,12 @@
     <style name = "regular_16_900">
         <item name = "android:fontFamily">@font/pretendard_regular</item>
         <item name = "android:textSize">16sp</item>
+        <item name = "android:textColor">@color/gray_900</item>
+    </style>
+
+    <style name = "bold_22_900">
+        <item name = "android:fontFamily">@font/pretendard_bold</item>
+        <item name = "android:textSize">22sp</item>
         <item name = "android:textColor">@color/gray_900</item>
     </style>
 </resources>
