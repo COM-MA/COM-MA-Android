@@ -101,7 +101,7 @@
             style="@style/bold_18_900"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/fairytale_detail_similar_title" />
 
         <androidx.compose.ui.platform.ComposeView
