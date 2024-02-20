@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name = "bold_26_900">
+        <item name = "android:fontFamily">@font/pretendard_bold</item>
+        <item name = "android:textSize">26sp</item>
+        <item name = "android:textColor">@color/gray_900</item>
+    </style>
+
+    <style name = "bold_18_900">
+        <item name = "android:fontFamily">@font/pretendard_bold</item>
+        <item name = "android:textSize">18sp</item>
+        <item name = "android:textColor">@color/gray_900</item>
+    </style>
+
+    <style name = "bold_14_900">
+        <item name = "android:fontFamily">@font/pretendard_bold</item>
+        <item name = "android:textSize">14sp</item>
+        <item name = "android:textColor">@color/gray_900</item>
+    </style>
+
+    <style name = "medium_18_900">
+        <item name = "android:fontFamily">@font/pretendard_medium</item>
+        <item name = "android:textSize">18sp</item>
+        <item name = "android:textColor">@color/gray_900</item>
+    </style>
+
+    <style name = "regular_16_900">
+        <item name = "android:fontFamily">@font/pretendard_regular</item>
+        <item name = "android:textSize">16sp</item>
+        <item name = "android:textColor">@color/gray_900</item>
+    </style>
+</resources>
