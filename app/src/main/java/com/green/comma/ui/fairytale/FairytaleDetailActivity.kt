@@ -1,22 +1,17 @@
 package com.green.comma.ui.fairytale
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
-import androidx.fragment.app.viewModels
 import com.green.comma.R
 import com.green.comma.data.response.fairytale.ResponseFairytaleDetailDto
 import com.green.comma.databinding.ActivityFairytaleDetailBinding
-import com.green.comma.ui.card.CardDetailActivity
-import com.green.comma.ui.compose.FairytaleListItem
 import com.green.comma.ui.compose.FairytaleTagElem
 import com.green.comma.ui.compose.PreviewFairytaleListItem
 import com.green.comma.ui.compose.theme.Green200

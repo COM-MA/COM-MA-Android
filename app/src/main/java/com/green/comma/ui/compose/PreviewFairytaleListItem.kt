@@ -16,9 +16,8 @@ import coil.compose.AsyncImage
 fun PreviewFairytaleListItem(imgUrl: String?){
     Surface(
         modifier = Modifier
-            .width(350.dp)
-            .height(140.dp)
-            .padding(end = 18.dp)
+            .width(360.dp)
+            .height(113.dp)
             .clickable {  },
         color = Color.White,
         onClick = {}
