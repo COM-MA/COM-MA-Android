@@ -124,9 +124,9 @@ class HomeFragment : Fragment() {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 var itemCount = 2
                 setContent {
-                    LazyRow(modifier = Modifier.padding(start = 20.dp)) {
+                    LazyRow(modifier = Modifier.padding(start = 30.dp)) {
                         items(itemCount) { item ->
-                            PreviewFairytaleListItem(it.top2Fairytales[item].recommendImageUrl)
+                            PreviewFairytaleListItem(it.top2Fairytales[item].recommendImageUrl, 300.dp, 20.dp)
                         }
                     }
                     DisposableEffect(Unit) {

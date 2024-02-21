@@ -83,7 +83,7 @@ class FairytaleDetailActivity : AppCompatActivity() {
         binding.composeViewFairytaleRecommend.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                PreviewFairytaleListItem(imgUrl = detailData.recommendImageUrl)
+                PreviewFairytaleListItem(imgUrl = detailData.recommendImageUrl, 330.dp, 0.dp)
             }
         }
     }

@@ -9,15 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 
 @Composable
-fun PreviewFairytaleListItem(imgUrl: String?){
+fun PreviewFairytaleListItem(imgUrl: String?, width: Dp, paddingEnd: Dp){
     Surface(
         modifier = Modifier
-            .width(360.dp)
+            .width(width)
             .height(113.dp)
+            .padding(end = paddingEnd)
             .clickable {  },
         color = Color.White,
         onClick = {}
