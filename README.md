@@ -1,6 +1,7 @@
-# COM-MA-Android
+# COM-MA
+AI Camera-Based Sign Language Learning Education Service
 
-## 📌 Commit Message Convention
+## Commit Message Convention
 - ➕ [ADD] : FEAT 이외의 부수적인 코드 추가 및 라이브러리 추가, 새로운 파일 생성
 - ✅ [MOD] : 코드 수정 및 내부 파일 수정
 - ✨ [FEAT] : 새로운 기능 구현
@@ -15,3 +16,10 @@
 - ♻️ [REFACTOR] : 전면 수정
 - 🛠 [SETTING] : 기타 설정 시
 
+## Tech Stack
+- Kotlin, Android Studio
+- Compose
+- Retrofit2
+- Glide
+- Coroutine
+- Data Binding
