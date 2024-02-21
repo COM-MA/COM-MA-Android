@@ -4,19 +4,18 @@
 <br/><br/>
 
 ## Commit Message Convention
-- ➕ [ADD] : FEAT 이외의 부수적인 코드 추가 및 라이브러리 추가, 새로운 파일 생성
-- ✅ [MOD] : 코드 수정 및 내부 파일 수정
-- ✨ [FEAT] : 새로운 기능 구현
-- 🎗️ [UI] : UI 작업
-- 🔀 [MERGE] : 다른 브랜치 MERGE 시 사용
-- 🔨 [FIX] : 버그 및 오류 해결
-- 🗑️ [DEL] : 쓸모없는 코드나 파일 삭제
-- 📝 [DOCS] : README나 WIKI 등의 문서 개정
-- ✏️ [CORRECT] : 문법의 오류나 타입의 변경, 이름 변경 등의 작은 수정
-- 📦 [CHORE] : 패키지 구조 변경, 프로젝트 내 파일이나 코드의 이동
-- ⏪️ [RENAME] : 파일 이름 변경
-- ♻️ [REFACTOR] : 전면 수정
-- 🛠 [SETTING] : 기타 설정 시
+- ➕ [ADD] : Add additional code and libraries other than FEAT, create new files
+- ✅ [MOD] : Code modifications and internal file modifications
+- ✨ [FEAT] : Implementing new features
+- 🎗️ [UI] : UI operations
+- 🔨 [FIX] : Fix bugs and errors
+- 🗑️ [DEL] : Delete useless code or files
+- 📝 [DOCS] : Revision of documents such as README or WIKI
+- ✏️ [CORRECT] : Minor corrections such as grammar errors, type changes, name changes, etc.
+- 📦 [CHORE] : Change package structure, move files or code within a project
+- ⏪️ [RENAME] : Change file name
+- ♻️ [REFACTOR] : Full revision
+- 🛠 [SETTING] : When setting other settings
 <br/><br/>
 
 ## Tech Stack
