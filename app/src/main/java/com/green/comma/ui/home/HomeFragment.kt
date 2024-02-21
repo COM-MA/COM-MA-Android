@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.green.comma.MainActivity
 import com.green.comma.R
 import com.green.comma.databinding.FragmentHomeBinding
@@ -43,6 +42,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        setEvent()
         setWordCardPreviewList()
         setFairytalePreviewList()
 
@@ -76,6 +76,20 @@ class HomeFragment : Fragment() {
         updateStatusBarColor(false, R.color.white)
     }
 
+    private fun setEvent() {
+        homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
+            binding.includeStickerWord.textView.elevation = if(it.home.isWordRegistered) 0f else 8f
+            binding.includeStickerWord.imgSticker.visibility = if(it.home.isWordRegistered) View.VISIBLE else View.INVISIBLE
+
+            binding.includeStickerQuiz.textView.elevation = if(it.home.isQuizParticipated) 0f else 8f
+            binding.includeStickerQuiz.imgSticker.visibility = if(it.home.isQuizParticipated) View.VISIBLE else View.INVISIBLE
+
+            binding.includeStickerFairytale.textView.elevation = if(it.home.isFairyTalePlayed) 0f else 8f
+            binding.includeStickerFairytale.imgSticker.visibility = if(it.home.isFairyTalePlayed) View.VISIBLE else View.INVISIBLE
+
+        }
+    }
+
     private fun setWordCardPreviewList(){
         val includeWordCardBinding = binding.includeHomeWordCard
 
@@ -83,7 +97,6 @@ class HomeFragment : Fragment() {
             val itemCount = 5
             includeWordCardBinding.composeViewHomePreviewList.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-                println("compose changed1")
                 setContent {
                     LazyRow(modifier = Modifier.padding(start = 20.dp)){
                         items(itemCount) { item ->
@@ -95,7 +108,6 @@ class HomeFragment : Fragment() {
                         onDispose {}
                     }
                 }
-                println("compose changed2")
             }
         }
 

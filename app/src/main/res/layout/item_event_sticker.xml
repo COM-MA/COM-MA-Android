@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="name"
+            type="String" />
+        <variable
+            name="clearImg"
+            type="android.graphics.drawable.Drawable" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/shape_sticker_background"
+                android:elevation="8dp"
+                android:outlineSpotShadowColor="@color/gray_300"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/bold_14_900"
+                android:textColor="@color/gray_500"
+                android:text="@{name}"/>
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/img_sticker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                android:background="@{clearImg}"/>
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
