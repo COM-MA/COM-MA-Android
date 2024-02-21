@@ -193,15 +193,24 @@ class CameraActivity : AppCompatActivity() {
 
                     if(count > 300){
                         println(count)
-                        var intent = Intent(this, CameraResultActivity::class.java)
-                        intent.putExtra("result", recogCount.maxCount())
+                        var intent = Intent(this, CameraLoadingDialogActivity::class.java)
                         startActivity(intent)
-                        finish()
+                        startActivityForResult(intent, 1)
                     }
                 }
             }
             image.close()
             isProcessingFrame = false
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK){
+            var intent = Intent(this, CameraResultActivity::class.java)
+            intent.putExtra("result", recogCount.maxCount())
+            startActivity(intent)
+            finish()
         }
     }
 

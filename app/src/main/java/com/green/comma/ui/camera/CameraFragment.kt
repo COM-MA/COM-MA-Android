@@ -292,14 +292,13 @@ class CameraFragment(
     private fun createCameraPreviewSession() {
         try {
             val texture = autoFitTextureView.surfaceTexture
-            texture!!.setDefaultBufferSize(previewSize.width, previewSize.height)
+            texture!!.setDefaultBufferSize(previewSize.width, previewSize.height*0.8.toInt())
 
             val surface = Surface(texture)
 
-            previewReader =
-                ImageReader.newInstance(previewSize.width, previewSize.height, ImageFormat.YUV_420_888, 2).apply {
-                    setOnImageAvailableListener(imageAvailableListener, backgroundHandler)
-                }
+            previewReader = ImageReader.newInstance(previewSize.width, previewSize.height, ImageFormat.YUV_420_888, 2).apply {
+                setOnImageAvailableListener(imageAvailableListener, backgroundHandler)
+            }
 
             previewRequestBuilder = cameraDevice!!.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW).apply {
                 addTarget(surface)
