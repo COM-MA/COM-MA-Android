@@ -82,33 +82,45 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginStart="82dp"
+                                android:layout_marginStart="80dp"
+                                android:layout_marginEnd="10dp"
                                 android:layout_marginTop="4dp"
                                 android:orientation="horizontal">
-
                                 <include
                                     android:id="@+id/include_sticker_attend"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
                                     layout="@layout/item_event_sticker"
                                     app:clearImg="@{@drawable/img_event_sticker_attend}"
-                                    app:name="@{@string/home_event_tv_attend}" />
-
+                                    app:name="@{@string/home_event_tv_attend}"/>
                                 <include
                                     android:id="@+id/include_sticker_word"
                                     layout="@layout/item_event_sticker"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
                                     app:clearImg="@{@drawable/img_event_sticker_word}"
                                     app:name="@{@string/home_event_tv_word}" />
 
                                 <include
                                     android:id="@+id/include_sticker_quiz"
                                     layout="@layout/item_event_sticker"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
                                     app:clearImg="@{@drawable/img_event_sticker_quiz}"
                                     app:name="@{@string/home_event_tv_quiz}" />
 
                                 <include
                                     android:id="@+id/include_sticker_fairytale"
                                     layout="@layout/item_event_sticker"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
                                     app:clearImg="@{@drawable/img_event_sticker_fairytale}"
                                     app:name="@{@string/home_event_tv_fairytale}" />
+
                             </LinearLayout>
                         </FrameLayout>
 
