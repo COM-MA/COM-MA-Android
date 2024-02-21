@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.data.repository.CardRepository
+import com.green.comma.data.response.BaseResponse
+import com.green.comma.data.response.BaseResponseNoData
 import com.green.comma.data.response.card.ResponseCardDetailDto
 import com.green.comma.data.response.card.ResponseCardRecogDetailDto
 import kotlinx.coroutines.launch
@@ -21,14 +23,13 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
     private val _cardRecogDetailItem = MutableLiveData<ResponseCardRecogDetailDto>()
     val cardRecogDetailItem: LiveData<ResponseCardRecogDetailDto> = _cardRecogDetailItem
 
+    private val _cardCreateResult = MutableLiveData<Boolean>()
+    val cardCreateResult: LiveData<Boolean> = _cardCreateResult
+
     init {
         loadLatestCardList()
     }
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "asdfasdfasdf"
-    }
-    val text: LiveData<String> = _text
     fun loadLatestCardList() {
         viewModelScope.launch {
             val latestCardList = cardRepository.getLatestCardList()
@@ -57,4 +58,10 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
         }
     }
 
+    fun postCardCreate(cardId: Long){
+        viewModelScope.launch {
+            val cardRecogDetail = cardRepository.postCardCreate(cardId)
+            _cardCreateResult.value = cardRecogDetail
+        }
+    }
 }

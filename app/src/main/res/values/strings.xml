@@ -44,7 +44,9 @@
 
     <string name="camera_detail_btn_quit">나가기</string>
     <string name="camera_detail_btn_create_card">단어카드 생성</string>
+    <string name="camera_detail_btn_see_card">단어카드 보기</string>
     <string name="camera_detail_btn_recog_again">다시 인식하기</string>
+    <string name="camera_recog_loading">인식중입니다..</string>
 
     <string name="quiz_btn_goback">돌아가기</string>
     <string name="quiz_tv_title">정답은 무엇일까요?</string>

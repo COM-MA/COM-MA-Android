@@ -1,6 +1,9 @@
 package com.green.comma.data.datasource
 
+import android.app.Notification
+import android.net.http.HttpException
 import com.green.comma.data.response.BaseResponse
+import com.green.comma.data.response.BaseResponseNoData
 import com.green.comma.data.response.card.ResponseCardDetailDto
 import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.data.response.card.ResponseCardRecogDetailDto
@@ -18,5 +21,8 @@ class CardRemoteDataSource(private val cardService : CardService) : CardDataSour
     }
     override suspend fun getCardRecogDetail(name: String): BaseResponse<ResponseCardRecogDetailDto> {
         return cardService.getCardRecogDetail(name)
+    }
+    override suspend fun postCardCreate(cardId: Long): Boolean {
+        return runCatching { cardService.postCardCreate(cardId) }.isSuccess
     }
 }
