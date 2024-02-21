@@ -8,3 +8,9 @@ data class BaseResponse<T>(
     val message: String,
     val data: T? = null,
 )
+
+@Serializable
+data class BaseResponseNoData(
+    val status: Int,
+    val message: String,
+)
