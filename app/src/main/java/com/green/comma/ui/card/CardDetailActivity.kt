@@ -3,6 +3,7 @@ package com.green.comma.ui.card
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
@@ -35,6 +36,27 @@ class CardDetailActivity : AppCompatActivity() {
 
         binding.btnCardSpeaker.setOnClickListener {
             tts.readTTS(binding.tvCardName.text.toString(), binding.btnCardSpeaker)
+        }
+
+        binding.btnBack.setOnClickListener{
+            finish()
+        }
+
+        binding.btnBigBack.setOnClickListener {
+            finish()
+        }
+
+        binding.btnDelete.setOnClickListener {
+            cardViewModel.deleteCard(userCardId)
+            cardViewModel.cardDeleteResult.observe(this){
+                if(it){
+                    Toast.makeText(this, "삭제를 완료했어요", Toast.LENGTH_SHORT).show()
+                    cardViewModel.loadLatestCardList()
+                    finish()
+                } else {
+                    Toast.makeText(this, "삭제에 실패했어요", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
         setContentView(binding.root)
     }

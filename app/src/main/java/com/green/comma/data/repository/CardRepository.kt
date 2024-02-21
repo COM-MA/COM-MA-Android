@@ -24,7 +24,10 @@ class CardRepository(
     }
     suspend fun postCardCreate(cardId: Long): Boolean {
         val result = cardRemoteDataSource.postCardCreate(cardId)
-        println(result)
+        return result
+    }
+    suspend fun deleteCard(userCardId: Long): Boolean {
+        val result = cardRemoteDataSource.deleteCard(userCardId)
         return result
     }
 }

@@ -26,6 +26,9 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
     private val _cardCreateResult = MutableLiveData<Boolean>()
     val cardCreateResult: LiveData<Boolean> = _cardCreateResult
 
+    private val _cardDeleteResult = MutableLiveData<Boolean>()
+    val cardDeleteResult: LiveData<Boolean> = _cardDeleteResult
+
     init {
         loadLatestCardList()
     }
@@ -60,8 +63,15 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
 
     fun postCardCreate(cardId: Long){
         viewModelScope.launch {
-            val cardRecogDetail = cardRepository.postCardCreate(cardId)
-            _cardCreateResult.value = cardRecogDetail
+            val createResult  = cardRepository.postCardCreate(cardId)
+            _cardCreateResult.value = createResult
+        }
+    }
+
+    fun deleteCard(userCardId: Long){
+        viewModelScope.launch {
+            val cardDeleteResult = cardRepository.deleteCard(userCardId)
+            _cardDeleteResult.value = cardDeleteResult
         }
     }
 }

@@ -25,4 +25,7 @@ class CardRemoteDataSource(private val cardService : CardService) : CardDataSour
     override suspend fun postCardCreate(cardId: Long): Boolean {
         return runCatching { cardService.postCardCreate(cardId) }.isSuccess
     }
+    override suspend fun deleteCard(userCardId: Long): Boolean {
+        return runCatching { cardService.deleteCard(userCardId) }.isSuccess
+    }
 }

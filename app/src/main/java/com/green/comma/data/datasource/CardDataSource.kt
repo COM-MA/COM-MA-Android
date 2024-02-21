@@ -12,4 +12,5 @@ interface CardDataSource {
     suspend fun getCardDetail(userCardId: Long) : BaseResponse<ResponseCardDetailDto>
     suspend fun getCardRecogDetail(name: String) : BaseResponse<ResponseCardRecogDetailDto>
     suspend fun postCardCreate(cardId: Long) : Boolean
+    suspend fun deleteCard(userCardId: Long) : Boolean
 }
