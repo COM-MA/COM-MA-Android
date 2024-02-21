@@ -39,11 +39,9 @@ class CameraResultActivity : AppCompatActivity() {
 
         binding.btnCreateWordCard.setOnClickListener {
             if(!cardId.equals(-1)){
-
                 cardViewModel.postCardCreate(cardId)
             }
             cardViewModel.cardCreateResult.observe(this){
-                println(it)
                 if(it){
                     val card = binding.cardViewCreateWord
                     card.visibility = View.VISIBLE
@@ -61,7 +59,11 @@ class CameraResultActivity : AppCompatActivity() {
 
         binding.btnReRecog.setOnClickListener {
             val intent = Intent(this, CameraActivity::class.java)
+            finish()
             startActivity(intent)
+        }
+
+        binding.btnFinish.setOnClickListener {
             finish()
         }
     }
