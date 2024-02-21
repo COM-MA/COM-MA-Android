@@ -1,8 +1,12 @@
 package com.green.comma.util
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.widget.ImageButton
+import com.green.comma.R
 import java.util.Locale
 
 class Tts(val context: Context) {
@@ -21,9 +25,11 @@ class Tts(val context: Context) {
         Log.e("TTS", "TTS 세팅 완료")
     }
 
-    fun readTTS(word: String){
-        Log.e("TTS", "TTS 출력 시작")
+    fun readTTS(word: String, button: ImageButton){
+        button.setImageResource(R.drawable.ic_word_card_speaker_lavender)
         textToSpeech?.speak(word, TextToSpeech.QUEUE_FLUSH, null)
-        Log.e("TTS", "TTS 출력 완료")
+        Handler(Looper.getMainLooper()).postDelayed({
+            button.setImageResource(R.drawable.ic_word_card_speaker_gray)
+        }, 1000)
     }
 }

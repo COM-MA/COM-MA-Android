@@ -14,6 +14,7 @@ class CameraResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCameraResultBinding
     private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(applicationContext) }
+    private lateinit var tts: Tts
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera_result)
@@ -25,25 +26,15 @@ class CameraResultActivity : AppCompatActivity() {
 
         if(wordResult != null){
             cardViewModel.loadCardRecogDetail(wordResult)
-
             setResultView(wordResult)
         }
 
-        val tts = Tts(applicationContext)
+        tts = Tts(applicationContext)
         tts.setTTS()
 
-        var wordText = binding.textWord.text.toString()
-
-        binding.btnSpeaker.setOnClickListener{
-            tts.readTTS(wordText)
+        binding.btnCreateWordCard.setOnClickListener {
+            println("clicked")
         }
-
-        /*binding.composeViewWordCardView.apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                WordCardView({ tts.readTTS(wordText) }, wordText)
-            }
-        }*/
     }
 
     private fun setResultView(wordResult: String){
@@ -56,6 +47,12 @@ class CameraResultActivity : AppCompatActivity() {
             Glide.with(this)
                 .load(it.SignImageUrl)
                 .into(binding.imgSign)
+
+            var wordText = binding.textWord.text.toString()
+
+            binding.btnSpeaker.setOnClickListener{
+                tts.readTTS(wordText, binding.btnSpeaker)
+            }
         }
     }
 }

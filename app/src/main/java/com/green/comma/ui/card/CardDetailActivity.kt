@@ -34,7 +34,7 @@ class CardDetailActivity : AppCompatActivity() {
         })
 
         binding.btnCardSpeaker.setOnClickListener {
-            tts.readTTS(binding.tvCardName.text.toString())
+            tts.readTTS(binding.tvCardName.text.toString(), binding.btnCardSpeaker)
         }
         setContentView(binding.root)
     }
