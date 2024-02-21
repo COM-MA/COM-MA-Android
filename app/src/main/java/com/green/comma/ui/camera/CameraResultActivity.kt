@@ -1,5 +1,6 @@
 package com.green.comma.ui.camera
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -56,6 +57,12 @@ class CameraResultActivity : AppCompatActivity() {
                     Toast.makeText(this, "이미 등록된 단어예요", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        binding.btnReRecog.setOnClickListener {
+            val intent = Intent(this, CameraActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
