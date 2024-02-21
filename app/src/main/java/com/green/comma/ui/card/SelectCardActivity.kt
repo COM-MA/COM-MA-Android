@@ -29,6 +29,10 @@ class SelectCardActivity : AppCompatActivity() {
         CardSelect.resetList()
         setCardList()
 
+        CardSelect.count.observe(this){
+            binding.btnMakeQuiz.text = it.toString() + "개 " + getString(R.string.card_select_btn_make_quiz)
+        }
+
         binding.btnMakeQuiz.setOnClickListener {
             val list = CardSelect.getSelectedCardList().toTypedArray().toLongArray()
             if(list.isNotEmpty()){
@@ -38,7 +42,6 @@ class SelectCardActivity : AppCompatActivity() {
                 finish()
             }
         }
-
 
         setContentView(binding.root)
     }
