@@ -47,7 +47,6 @@ fun WordCardListItem(data: ResponseCardListDto, onClick: () -> Unit, isClickedCo
                 if(isClickedColorChange) {
                     CardSelect.addSelectedCard(data.userCardId)
                     isClicked = CardSelect.checkIsSelected(data.userCardId)
-                    CardSelect.printCard()
                 }
                 onClick()
             }
