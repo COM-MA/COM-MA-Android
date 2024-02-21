@@ -85,8 +85,8 @@ class QuizActivity : AppCompatActivity() {
             .load(item.wrongCard.cardImageUrl)
             .into(if(randomBool) binding.imgRight else binding.imgLeft)
 
-        binding.tvLeft.text = if(randomBool) item.wrongCard.name else item.correctCard.name
-        binding.tvRight.text = if(randomBool) item.correctCard.name else item.wrongCard.name
+        binding.tvLeft.text = if(randomBool) item.correctCard.name else item.wrongCard.name
+        binding.tvRight.text = if(randomBool) item.wrongCard.name else item.correctCard.name
     }
 
     private fun setCardView(){
