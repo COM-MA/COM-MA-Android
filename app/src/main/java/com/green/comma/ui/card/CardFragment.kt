@@ -50,7 +50,6 @@ class CardFragment : Fragment() {
         val tvCardAlignType = binding.tvCardAlignType
 
         cardViewModel.cardListItems.observe(viewLifecycleOwner) { it ->
-            println("data changed")
             binding.composeViewWordCard.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 println("compose changed1")
@@ -68,17 +67,14 @@ class CardFragment : Fragment() {
                         onDispose {}
                     }
                 }
-                println("compose changed2")
             }
         }
 
         binding.btnCardAlign.setOnClickListener {
             if(tvCardAlignType.text == alphaTypeStr){
-                println("알파벳순")
                 tvCardAlignType.text = latestTypeStr
                 cardViewModel.loadAlphabetCardList()
             } else {
-                println("가나다순")
                 tvCardAlignType.text = alphaTypeStr
                 cardViewModel.loadLatestCardList()
             }

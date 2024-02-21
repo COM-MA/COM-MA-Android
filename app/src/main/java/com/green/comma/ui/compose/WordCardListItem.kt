@@ -3,7 +3,9 @@ package com.green.comma.ui.compose
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -32,6 +34,8 @@ import com.green.comma.ui.compose.theme.Lavender500
 import com.green.comma.ui.compose.theme.Typography
 import com.green.comma.ui.compose.theme.pretendard
 import androidx.compose.runtime.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.green.comma.ui.card.CardSelect
 
 @Composable
@@ -39,12 +43,13 @@ fun WordCardListItem(data: ResponseCardListDto, onClick: () -> Unit, isClickedCo
 
     var isClicked by remember { mutableStateOf(false) }
     val borderColor = if (isClicked) Lavender500 else Color.Transparent
+    var isReversed by remember { mutableStateOf(false) }
 
     Surface(
         modifier = modifier
             .width(162.dp)
             .clickable {
-                if(isClickedColorChange) {
+                if (isClickedColorChange) {
                     CardSelect.addSelectedCard(data.userCardId)
                     isClicked = CardSelect.checkIsSelected(data.userCardId)
                 }
@@ -65,19 +70,39 @@ fun WordCardListItem(data: ResponseCardListDto, onClick: () -> Unit, isClickedCo
             modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
-        ){
-            AsyncImage(
-                modifier = modifier.height(77.dp),
-                model = data.cardImageUrl,
-                contentDescription = "단어 이미지"
-            )
-            //Image(modifier = modifier.height(77.dp), painter = img, contentDescription = "단어 이미지")
-            Text(modifier = modifier.padding(0.dp, 6.dp), text = data.name, style = Typography.labelLarge)
+        ) {
+            Box(modifier = modifier.height(125.dp)) {
+                if (!isReversed) {
+                    Column(
+                        modifier = modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        AsyncImage(
+                            modifier = modifier.height(77.dp),
+                            model = data.cardImageUrl,
+                            contentDescription = "단어 이미지"
+                        )
+                        //Image(modifier = modifier.height(77.dp), painter = img, contentDescription = "단어 이미지")
+                        Text(
+                            modifier = modifier.padding(0.dp, 6.dp),
+                            text = data.name,
+                            style = Typography.labelLarge
+                        )
+                    }
+                } else {
+                    AsyncImage(
+                        modifier = modifier.fillMaxHeight(),
+                        model = data.signImageUrl,
+                        contentDescription = "수화 이미지"
+                    )
+                }
+            }
             Surface(
                 modifier = modifier
                     .width(80.dp)
                     .height(27.dp)
-                    .clickable(onClick = {}),
+                    .clickable(onClick = { isReversed = !isReversed }),
                 shape = RoundedCornerShape(8.dp),
                 color = Lavender200
             ) {
@@ -88,9 +113,9 @@ fun WordCardListItem(data: ResponseCardListDto, onClick: () -> Unit, isClickedCo
                         fontFamily = pretendard,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp,
-                        color = Color.White
-                    ),
-                    textAlign = TextAlign.Center)
+                        color = Color.White,
+                        textAlign = TextAlign.Center)
+                )
             }
         }
     }
