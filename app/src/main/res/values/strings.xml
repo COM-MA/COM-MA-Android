@@ -48,7 +48,13 @@
 
     <string name="quiz_btn_goback">돌아가기</string>
     <string name="quiz_tv_title">정답은 무엇일까요?</string>
-    <string name="quiz_btn_check">확인하기</string>
+    <string name="quiz_btn_next">다음</string>
+
+    <string name="quiz_dialog_text_compliment">우와 대단해요~!\n정답이에요!</string>
+    <string name="quiz_dialog_text_sorry">앗 아쉬워요~\n정답이 아니예요</string>
+    <string name="quiz_dialog_text_finish">수고했어요~\n퀴즈가 끝났어요!</string>
+    <string name="quiz_dialog_btn_continue">계속하기</string>
+    <string name="quiz_dialog_btn_finish">끝내기</string>
 
     <string name="list_align_text_one">한줄 보기</string>
     <string name="list_align_text_two">두줄 보기</string>

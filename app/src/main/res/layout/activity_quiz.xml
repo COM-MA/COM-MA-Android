@@ -30,6 +30,7 @@
                 android:textSize="18dp" />
 
             <TextView
+                android:id="@+id/tv_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
@@ -81,7 +82,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:orientation="horizontal">
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view_select_left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/horizontal_padding"
@@ -89,6 +91,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
+                app:strokeColor="@color/lavender_500"
+                app:strokeWidth="0dp"
                 android:outlineSpotShadowColor="@color/gray_500"
                 app:cardElevation="10dp"
                 app:cardCornerRadius="8dp">
@@ -98,12 +102,12 @@
                     android:layout_margin="15dp"
                     android:orientation="vertical">
                     <ImageView
-                        android:id="@+id/img_correct"
+                        android:id="@+id/img_left"
                         android:layout_width="match_parent"
                         android:layout_height="85dp"
                         android:layout_gravity="center" />
                     <TextView
-                        android:id="@+id/tv_correct"
+                        android:id="@+id/tv_left"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -112,8 +116,9 @@
                         android:textColor="@color/gray_900"
                         android:textSize="18dp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view_select_right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/horizontal_padding"
@@ -121,6 +126,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
+                app:strokeColor="@color/lavender_500"
+                app:strokeWidth="0dp"
                 android:outlineSpotShadowColor="@color/gray_500"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="10dp">
@@ -130,12 +137,12 @@
                     android:layout_margin="15dp"
                     android:orientation="vertical">
                     <ImageView
-                        android:id="@+id/img_wrong"
+                        android:id="@+id/img_right"
                         android:layout_width="match_parent"
                         android:layout_height="85dp"
                         android:layout_gravity="center" />
                     <TextView
-                        android:id="@+id/tv_wrong"
+                        android:id="@+id/tv_right"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -144,16 +151,18 @@
                         android:textColor="@color/gray_900"
                         android:textSize="18dp" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/horizontal_padding"
             android:background="@drawable/shape_button_background"
             android:fontFamily="@font/pretendard_bold"
-            android:text="@string/quiz_btn_check"
+            android:visibility="invisible"
+            android:text="@string/quiz_btn_next"
             android:textSize="22dp" />
     </LinearLayout>
 

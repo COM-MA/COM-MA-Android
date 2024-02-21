@@ -5,6 +5,7 @@
     <dimen name="horizontal_padding">30dp</dimen>
     <dimen name="vertical_padding">16dp</dimen>
 
+    <dimen name="popup_horizontal_padding">40dp</dimen>
     <dimen name="main_list_bottom_padding">150dp</dimen>
     <dimen name="app_bar_logo_width">100dp</dimen>
 </resources>
