@@ -67,7 +67,8 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginBottom="4dp"
                             android:background="@drawable/shape_tv_background"
-                            android:paddingHorizontal="8dp"
+                            android:paddingHorizontal="10dp"
+                            android:letterSpacing=".008"
                             android:paddingVertical="5dp"
                             android:text="@string/home_tv_event_cheering"
                             android:textColor="@color/white" />
@@ -86,6 +87,7 @@
                                 android:orientation="horizontal">
 
                                 <include
+                                    android:id="@+id/include_sticker_attend"
                                     layout="@layout/item_event_sticker"
                                     app:clearImg="@{@drawable/img_event_sticker_attend}"
                                     app:name="@{@string/home_event_tv_attend}" />

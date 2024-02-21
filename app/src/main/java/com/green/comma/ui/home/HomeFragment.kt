@@ -78,6 +78,8 @@ class HomeFragment : Fragment() {
 
     private fun setEvent() {
         homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
+            binding.includeStickerAttend.imgSticker.visibility = View.VISIBLE
+
             binding.includeStickerWord.textView.elevation = if(it.home.isWordRegistered) 0f else 8f
             binding.includeStickerWord.imgSticker.visibility = if(it.home.isWordRegistered) View.VISIBLE else View.INVISIBLE
 
