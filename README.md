@@ -8,7 +8,7 @@
 
 ## 📍Table of Contents
 
--  [💟 Android Team Members](#-android-team-members)
+-  [💟 Android Team Members](#-android-member)
 -  [💟 Project Overview](#-project-overview)
 -  [💟 Key Features](#-key-features)
     - [🔎 COM-MA Lens](#-com-ma-lens)
@@ -17,11 +17,8 @@
     - [📚 Storybooks](#-storybooks)
 -  [💟 How to Run](#-how-to-run)
 -  [💟 Tech Stack](#-tech-stack)
-    - [🖥 Backend Server](#-backend-server)
 -  [💟 System Architecture](#-system-architecture)
-    - [📂 Folder Structure](#-folder-structure)
     - [⚙️ Architecture Structure](#-architecture-structure)
-    - [📋 ERD](#-erd)
 -  [💟 Commit Convention](#-commit-convention)
 
 <br>
@@ -35,7 +32,7 @@
 
 ## 💟 Project Overview
 
-> <i>'Connect the Silent World and the World of Sounds'</i>
+ <i>'Connect the Silent World and the World of Sounds'</i>
 
 `COM-MA` is an "AI camera-based sign language learning education platform" that helps deaf parents teach sign language directly to their children, <b>CODAs</b> (Children of Deaf Adults).
 <br><br>The `COM-MA` Lens recognizes sign language and quickly converts it into learning materials for deaf parents. It offers these parents the opportunity to engage in sign language education with their children in everyday life.
@@ -86,17 +83,7 @@
 - Data Binding
 <br>
 
-### 🖥 Android
-
-| Role               | Type                                                                                                                                                                                                                                                            |
-|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Framework           | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot3-6DB33F?style=for-the-badge&logo=Spring&logoColor=white&labelColor=2F2F2F)                                                                                                                                              |
-| Language            | ![Java](https://img.shields.io/badge/Java17-004027?style=for-the-badge&logo=Java&logoColor=white&labelColor=2F2F2F)                                                                                                                                                               |
-| Build Tool          | ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white&labelColor=2F2F2F)                                                                                                                                                           |                                                                                                                                           |
-| Google API          | ![Oauth 2.0 API](https://img.shields.io/badge/OAuth%202.0%20API-4285F4?style=for-the-badge&logo=Google&logoColor=white&labelColor=2F2F2F)  ![Youtube DATA API V3](https://img.shields.io/badge/Youtube%20DATA%20API%20V3-FF0000?style=for-the-badge&logo=YouTube&logoColor=white&labelColor=2F2F2F) 
-
-<br>
-
+## 💟 System Architecture
 ### ⚙️ Architecture Structure
 ![Frame 7](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/c1a1e8aa-b4e4-4a60-a1a0-66d36d7b075a)
 <br>
