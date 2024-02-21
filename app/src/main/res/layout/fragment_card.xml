@@ -116,7 +116,7 @@
                                 android:layout_height="20dp"
                                 android:layout_marginLeft="14dp"
                                 android:background="@null"
-                                android:src="@drawable/ic_list_align_two"/>
+                                android:src="@drawable/ic_list_align_two_lavender"/>
                         <ImageButton
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
