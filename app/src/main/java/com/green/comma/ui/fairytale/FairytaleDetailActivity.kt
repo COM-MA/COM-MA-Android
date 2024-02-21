@@ -54,6 +54,9 @@ class FairytaleDetailActivity : AppCompatActivity() {
         fairytaleViewModel.itemDetail.observe(this) {
             setDetail(it)
         }
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
         setContentView(binding.root)
     }

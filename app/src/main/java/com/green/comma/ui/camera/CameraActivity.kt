@@ -57,6 +57,10 @@ class CameraActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         initClassifier()
         checkPermission()
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onResume() {
@@ -191,7 +195,7 @@ class CameraActivity : AppCompatActivity() {
                     //binding.textResult.text = String.format(Locale.ENGLISH, "class : %s, prob : %.2f%%", output.first, output.second * 100)
                     recogCount.addCount(output.first)
 
-                    if(count > 300){
+                    if(count > 90){
                         println(count)
                         var intent = Intent(this, CameraLoadingDialogActivity::class.java)
                         startActivity(intent)

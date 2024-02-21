@@ -20,6 +20,9 @@
             android:paddingHorizontal="@dimen/horizontal_padding">
 
             <ImageView
+                android:id="@+id/btn_back"
+                android:paddingVertical="10dp"
+                android:paddingEnd="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
@@ -32,11 +35,13 @@
                 android:src="@drawable/ic_logo_lense" />
 
             <TextView
+                android:id="@+id/btn_finish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:clickable="true"
                 android:fontFamily="@font/pretendard_medium"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:text="@string/camera_detail_btn_quit"
                 android:textColor="@color/lavender_500"
                 android:textSize="18dp" />

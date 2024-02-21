@@ -43,6 +43,13 @@ class SelectCardActivity : AppCompatActivity() {
             }
         }
 
+        binding.includeCardToolbar.btnBack.setOnClickListener {
+            finish()
+        }
+
+        binding.includeCardToolbar.btnText.setOnClickListener {
+        }
+
         setContentView(binding.root)
     }
 
