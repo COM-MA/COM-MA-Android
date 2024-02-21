@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
         val includeWordCardBinding = binding.includeHomeWordCard
 
         homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
-            val itemCount = 5
+            val itemCount = if(it.top5Cards.size < 5) it.top5Cards.size else 5
             includeWordCardBinding.composeViewHomePreviewList.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 setContent {
@@ -122,9 +122,9 @@ class HomeFragment : Fragment() {
     private fun setFairytalePreviewList(){
         val includeFairytaleBinding = binding.includeHomePopularFairytale
         homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
+            val itemCount = if(it.top2Fairytales.size < 2) it.top2Fairytales.size else 2
             includeFairytaleBinding.composeViewHomePreviewList.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-                var itemCount = 2
                 setContent {
                     LazyRow(modifier = Modifier.padding(start = 30.dp)) {
                         items(itemCount) { item ->
