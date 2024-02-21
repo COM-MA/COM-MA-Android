@@ -1,5 +1,6 @@
 # COM-MA
-AI Camera-Based Sign Language Learning Education Service
+<img width="200" alt="앱 아이콘 9 (1)" src="https://github.com/COM-MA/COM-MA-Android/assets/72160826/70be6a3f-ec87-47ac-b628-f16d09c35f95">
+<br/>AI Camera-Based Sign Language Learning Education Service
 
 ## Commit Message Convention
 - ➕ [ADD] : FEAT 이외의 부수적인 코드 추가 및 라이브러리 추가, 새로운 파일 생성
