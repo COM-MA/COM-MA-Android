@@ -27,7 +27,7 @@
 
 | TEAM 👨‍👦‍👦  | Name 👩‍💻  | Major 🖥         | Contact mail 📧    |
 |----------|-------|------------------|--------------------|
-|Green | Myojin Seo | IT Engineering | 0602smj.gmail.com |
+|Green | Myojin Seo | IT Engineering | 0602smj@gmail.com |
 <br>
 
 ## 💟 Background
