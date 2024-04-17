@@ -16,7 +16,7 @@ class FairytaleViewModelFactory(private val context: Context): ViewModelProvider
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(FairytaleViewModel::class.java) -> {
-                val repository = FairytaleRepository(FairytaleRemoteDataSource(ApiClient.getApiClient().create()))
+                val repository = FairytaleRepository(FairytaleRemoteDataSource(ApiClient.getApiClient(context).create()))
                 FairytaleViewModel(repository) as T
             }
             else -> {

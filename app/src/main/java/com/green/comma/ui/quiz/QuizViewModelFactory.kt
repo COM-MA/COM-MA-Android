@@ -15,7 +15,7 @@ class QuizViewModelFactory(private val context: Context): ViewModelProvider.Fact
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(QuizViewModel::class.java) -> {
-                val repository = QuizRepository( QuizRemoteDataSource(ApiClient.getApiClient().create()))
+                val repository = QuizRepository( QuizRemoteDataSource(ApiClient.getApiClient(context).create()))
                 QuizViewModel(repository) as T
             }
             else -> {

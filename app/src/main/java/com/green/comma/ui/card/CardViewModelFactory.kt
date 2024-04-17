@@ -13,7 +13,7 @@ class CardViewModelFactory( private val context: Context): ViewModelProvider.Fac
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(CardViewModel::class.java) -> {
-                val repository = CardRepository( CardRemoteDataSource(ApiClient.getApiClient().create()))
+                val repository = CardRepository( CardRemoteDataSource(ApiClient.getApiClient(context).create()))
                 CardViewModel(repository) as T
             }
             else -> {

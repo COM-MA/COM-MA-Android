@@ -14,7 +14,7 @@ class HomeViewModelFactory(private val context: Context): ViewModelProvider.Fact
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                val repository = HomeRepository( HomeRemoteDataSource(ApiClient.getApiClient().create()))
+                val repository = HomeRepository( HomeRemoteDataSource(ApiClient.getApiClient(context).create()))
                 HomeViewModel(repository) as T
             }
             else -> {
