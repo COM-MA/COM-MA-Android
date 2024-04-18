@@ -1,7 +1,9 @@
 package com.green.comma.data
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import com.green.comma.ui.auth.AuthActivity
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -26,7 +28,7 @@ object ApiClient {
     fun getApiClient(context: Context): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .client(sslOkHttpClient(context, AppInterceptor()))
+            .client(sslOkHttpClient(context, AppInterceptor(context)))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -77,21 +79,29 @@ object ApiClient {
             e.printStackTrace()
         }
 
-        okHttpClient.addInterceptor(interceptor)
+        return okHttpClient.addInterceptor(interceptor)
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             }).build()
-        return okHttpClient.build()
     }
 
-    class AppInterceptor : Interceptor {
+    class AppInterceptor(private val context: Context) : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain) : Response = with(chain) {
             val newRequest = request().newBuilder()
                 .addHeader("Content-Type", contentType)
                 .addHeader("Authorization", sampleToken)
                 .build()
-            proceed(newRequest)
+
+            val response = proceed(newRequest)
+            if (response.code == 401) {
+                val intent = Intent(context, AuthActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                context.startActivity(intent)
+            } else if (response.code == 500){
+                println("500 에러")
+            }
+            response
         }
     }
 }
