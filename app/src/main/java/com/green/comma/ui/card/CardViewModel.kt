@@ -30,7 +30,7 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
     val cardDeleteResult: LiveData<Boolean> = _cardDeleteResult
 
     init {
-        loadLatestCardList()
+        //loadLatestCardList()
     }
 
     fun loadLatestCardList() {

@@ -95,7 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/pretendard_medium"
-                            android:text="@string/card_tv_align_alphabetical"
+                            android:text="@string/card_tv_align_latest"
                             android:textColor="@color/gray_500"
                             android:textSize="14sp" />
                     </LinearLayout>

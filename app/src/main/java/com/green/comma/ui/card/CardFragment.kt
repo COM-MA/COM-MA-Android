@@ -27,6 +27,11 @@ class CardFragment : Fragment() {
     private val binding get() = _binding!!
     private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(requireContext()) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        cardViewModel.loadLatestCardList()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +57,6 @@ class CardFragment : Fragment() {
         cardViewModel.cardListItems.observe(viewLifecycleOwner) { it ->
             binding.composeViewWordCard.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-                println("compose changed1")
                 setContent {
                     LazyVerticalGrid(
                         modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.horizontal_padding)),
@@ -62,10 +66,6 @@ class CardFragment : Fragment() {
                             WordCardListItem(it[item], { moveToCardDetail(it[item].userCardId) }, false)
                         }
                     }
-                    DisposableEffect(Unit) {
-                        cardViewModel.loadLatestCardList()
-                        onDispose {}
-                    }
                 }
             }
         }
@@ -73,10 +73,10 @@ class CardFragment : Fragment() {
         binding.btnCardAlign.setOnClickListener {
             if(tvCardAlignType.text == alphaTypeStr){
                 tvCardAlignType.text = latestTypeStr
-                cardViewModel.loadAlphabetCardList()
+                cardViewModel.loadLatestCardList()
             } else {
                 tvCardAlignType.text = alphaTypeStr
-                cardViewModel.loadLatestCardList()
+                cardViewModel.loadAlphabetCardList()
             }
         }
 
