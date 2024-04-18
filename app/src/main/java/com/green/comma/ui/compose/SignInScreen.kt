@@ -49,7 +49,7 @@ fun SignInScreen(onClick: () -> Unit) {
 
 @Composable
 fun SignInBtn(onClick: () -> Unit) {
-    val imgGoogle = painterResource(id = R.drawable.icon_signin_google)
+    val imgGoogle = painterResource(id = R.drawable.icon_logo_google)
 
     Surface(
         modifier = Modifier.fillMaxWidth().height(40.dp)

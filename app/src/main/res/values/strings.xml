@@ -64,4 +64,11 @@
 
     <string name="word_card_btn_revert">뒤집기</string>
 
+    <string name="auth_login_edit_id">아이디를 입력하세요</string>
+    <string name="auth_login_edit_password">비밀번호를 입력하세요</string>
+    <string name="auth_login_text_find_account">계정 찾기</string>
+    <string name="auth_login_text_join">회원가입하기</string>
+    <string name="auth_login_btn_login">로그인하기</string>
+    <string name="auth_login_btn_google_login">구글로 로그인하기</string>
+
 </resources>
