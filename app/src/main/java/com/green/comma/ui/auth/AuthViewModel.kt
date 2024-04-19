@@ -13,10 +13,20 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
     private val _googleLoginResult = MutableLiveData<ResponseGoogleLoginDto>()
     val googleLoginResult: LiveData<ResponseGoogleLoginDto> = _googleLoginResult
 
+    private val _nicknameResult = MutableLiveData<Boolean>()
+    val nicknameResult: LiveData<Boolean> = _nicknameResult
+
     fun loadGoogleLogin(code: String) {
         viewModelScope.launch {
             val loginResult = authRepository.postGoogleLogin(code)
             _googleLoginResult.value = loginResult
+        }
+    }
+
+    fun postNickname(nickname: String) {
+        viewModelScope.launch {
+            val nicknameResult = authRepository.postNickname(nickname)
+            _nicknameResult.value = nicknameResult
         }
     }
 }

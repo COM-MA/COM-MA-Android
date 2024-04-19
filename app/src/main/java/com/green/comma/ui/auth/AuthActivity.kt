@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.green.comma.CommaApplication
 import com.green.comma.MainActivity
 import com.green.comma.R
 import com.green.comma.databinding.ActivityAuthBinding
@@ -18,7 +19,7 @@ import com.green.comma.databinding.ActivityAuthBinding
 class AuthActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthBinding
-    private val authViewModel: AuthViewModel by viewModels { AuthViewModelFactory(applicationContext) }
+    private val authViewModelforGoogleLogin: AuthViewModel by viewModels { AuthViewModelFactory(applicationContext, true) }
     private val googleSignInClient: GoogleSignInClient by lazy { getGoogleClient() }
     private val googleAuthLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
@@ -29,12 +30,16 @@ class AuthActivity : AppCompatActivity() {
             val serverAuth = account.serverAuthCode
             if(serverAuth != null){
                 //val urlServerAuth = serverAuth.substring(0, 1) + "%2F" + serverAuth.substring(2)
-                authViewModel.loadGoogleLogin(serverAuth)
-                authViewModel.googleLoginResult.observe(this){
+                authViewModelforGoogleLogin.loadGoogleLogin(serverAuth)
+                authViewModelforGoogleLogin.googleLoginResult.observe(this){
+                    CommaApplication.preferences.setString(getString(R.string.access_token), it.accessToken)
                     if(it.isNew){
                         moveAuthNicknameActivity(it.nickname)
                         finish()
                     } else {
+                        CommaApplication.preferences.setString(getString(R.string.nickname), it.nickname)
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
                     }
                 }
             }

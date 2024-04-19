@@ -9,4 +9,8 @@ class AuthRepository(
     suspend fun postGoogleLogin(code: String): ResponseGoogleLoginDto {
         return authRemoteDataSource.postGoogleLogin(code).data!!
     }
+
+    suspend fun postNickname(nickname: String): Boolean {
+        return authRemoteDataSource.postNickname(nickname)
+    }
 }

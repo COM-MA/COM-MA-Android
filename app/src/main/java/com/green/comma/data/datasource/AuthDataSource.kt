@@ -5,4 +5,5 @@ import com.green.comma.data.response.auth.ResponseGoogleLoginDto
 
 interface AuthDataSource {
     suspend fun postGoogleLogin(code: String) : BaseResponse<ResponseGoogleLoginDto>
+    suspend fun postNickname(nickname: String) : Boolean
 }

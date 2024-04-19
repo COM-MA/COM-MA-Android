@@ -8,4 +8,7 @@ class AuthRemoteDataSource(private val authService : AuthService) : AuthDataSour
     override suspend fun postGoogleLogin(code: String): BaseResponse<ResponseGoogleLoginDto> {
         return authService.postGoogleLogin(code)
     }
+    override suspend fun postNickname(nickname: String): Boolean {
+        return runCatching { authService.postNickname(nickname) }.isSuccess
+    }
 }
