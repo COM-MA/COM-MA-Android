@@ -27,12 +27,17 @@ class AuthActivity : AppCompatActivity() {
             val account = task.getResult(ApiException::class.java)
 
             val serverAuth = account.serverAuthCode
-            println(serverAuth)
             if(serverAuth != null){
-                val urlServerAuth = serverAuth.substring(0, 1) + "%2F" + serverAuth.substring(2)
+                //val urlServerAuth = serverAuth.substring(0, 1) + "%2F" + serverAuth.substring(2)
                 authViewModel.loadGoogleLogin(serverAuth)
+                authViewModel.googleLoginResult.observe(this){
+                    if(it.isNew){
+                        moveAuthNicknameActivity(it.nickname)
+                        finish()
+                    } else {
+                    }
+                }
             }
-            //moveSignUpActivity()
 
         } catch (e: ApiException) {
             Log.e(AuthActivity::class.java.simpleName, e.stackTraceToString())
@@ -41,14 +46,9 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
         binding = ActivityAuthBinding.inflate(layoutInflater)
 
         addListener()
-
-        authViewModel.googleLoginResult.observe(this, Observer { item ->
-            println(item)
-        })
 
         setContentView(binding.root)
     }
@@ -74,9 +74,11 @@ class AuthActivity : AppCompatActivity() {
         return GoogleSignIn.getClient(this, googleSignInOption)
     }
 
-    private fun moveSignUpActivity() {
+    private fun moveAuthNicknameActivity(randomNickname: String) {
         this.run {
-            startActivity(Intent(this, MainActivity::class.java))
+            val intent = Intent(this, AuthNicknameActivity::class.java)
+            intent.putExtra("randomNickname", randomNickname)
+            startActivity(intent)
             finish()
         }
     }

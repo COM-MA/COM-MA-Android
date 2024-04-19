@@ -9,4 +9,6 @@ data class ResponseGoogleLoginDto(
     val accessToken: String,
     @SerialName("nickname")
     val nickname: String,
+    @SerialName("isNew")
+    val isNew: Boolean,
 )
