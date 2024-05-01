@@ -18,7 +18,7 @@ class FairytaleViewModel(private val fairytaleRepository: FairytaleRepository) :
     val itemDetail: LiveData<ResponseFairytaleDetailDto> = _itemDetail
 
     init {
-        loadFairytaleList()
+        //loadFairytaleList()
     }
 
     private val _text = MutableLiveData<String>().apply {

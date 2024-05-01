@@ -11,13 +11,14 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.appbar.AppBarLayout
+import com.green.comma.CommaApplication
 import com.green.comma.MainActivity
 import com.green.comma.R
 import com.green.comma.databinding.FragmentHomeBinding
@@ -41,8 +42,10 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        homeViewModel.loadHomeData()
 
         setEvent()
+        setNickname()
         setWordCardPreviewList()
         setFairytalePreviewList()
 
@@ -92,6 +95,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setNickname(){
+        val savedNickname = CommaApplication.preferences.getString(getString(R.string.nickname), "")
+        binding.textGreeting.text = savedNickname + getString(R.string.home_tv_greeting)
+    }
+
     private fun setWordCardPreviewList(){
         val includeWordCardBinding = binding.includeHomeWordCard
 
@@ -104,10 +112,6 @@ class HomeFragment : Fragment() {
                         items(itemCount) { item ->
                             WordCardListItem(it.top5Cards[item], { moveToCardDetail(it.top5Cards[item].userCardId) }, false)
                         }
-                    }
-                    DisposableEffect(Unit) {
-                        homeViewModel.loadHomeData()
-                        onDispose {}
                     }
                 }
             }

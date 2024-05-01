@@ -11,6 +11,6 @@ class AuthRepository(
     }
 
     suspend fun postNickname(nickname: String): Boolean {
-        return authRemoteDataSource.postNickname(nickname)
+        return runCatching { authRemoteDataSource.postNickname(nickname) }.isSuccess
     }
 }

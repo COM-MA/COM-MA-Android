@@ -1,5 +1,9 @@
 package com.green.comma.ui.home
 
+import android.net.http.HttpException
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresExtension
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,19 +19,19 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
     private val _homeDataItem = MutableLiveData<ResponseHomeDataDto>()
     val homeDataItem: LiveData<ResponseHomeDataDto> = _homeDataItem
 
-    init {
+    /*init {
         loadHomeData()
-    }
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "언어천재님, 반가워요!"
-    }
-    val text: LiveData<String> = _text
+    }*/
 
     fun loadHomeData() {
         viewModelScope.launch {
-            val homeData = homeRepository.getHomeData()
-            _homeDataItem.value = homeData
+            homeRepository.getHomeData()
+                .onSuccess {
+                    _homeDataItem.value = it
+                }
+                .onFailure {
+                    Log.d("GET HOME DATA FAILURE", it.toString())
+                }
         }
     }
 }

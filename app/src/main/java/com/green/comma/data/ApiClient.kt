@@ -104,12 +104,11 @@ object ApiClient {
                 .build()
 
             val response = proceed(newRequest)
-            if (response.code == 401) {
-                val intent = Intent(context, AuthActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                context.startActivity(intent)
-            } else if (response.code == 500){
-                println("500 에러")
+            when (response.code) {
+                401, 404, 500 -> {
+                    context.startActivity(Intent(context, AuthActivity::class.java))
+                    Log.d("API FAILURE", response.toString())
+                }
             }
             response
         }
@@ -121,13 +120,6 @@ object ApiClient {
             val newRequest = request().newBuilder().build()
             val response = proceed(newRequest)
 
-            if (response.code == 401) {
-                val intent = Intent(context, AuthActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                context.startActivity(intent)
-            } else if (response.code == 500){
-                println("500 에러")
-            }
             response
         }
     }

@@ -54,6 +54,7 @@ class SelectCardActivity : AppCompatActivity() {
     }
 
     private fun setCardList(){
+        cardViewModel.loadLatestCardList()
         var columCount = 2
         cardViewModel.cardListItems.observe(this) {
             binding.composeViewWordCard.apply {

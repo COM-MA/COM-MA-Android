@@ -8,7 +8,7 @@ import com.green.comma.data.response.quiz.ResponseQuizDataDto
 class HomeRepository(
     private val homeRemoteDataSource: HomeRemoteDataSource
 ) {
-    suspend fun getHomeData(): ResponseHomeDataDto {
-        return homeRemoteDataSource.getHomeData().data!!
+    suspend fun getHomeData(): Result<ResponseHomeDataDto> {
+        return runCatching { homeRemoteDataSource.getHomeData().data!! }
     }
 }

@@ -1,6 +1,7 @@
 package com.green.comma.data.datasource
 
 import com.green.comma.data.response.BaseResponse
+import com.green.comma.data.response.BaseResponseNoData
 import com.green.comma.data.response.auth.ResponseGoogleLoginDto
 import com.green.comma.data.service.AuthService
 
@@ -8,7 +9,7 @@ class AuthRemoteDataSource(private val authService : AuthService) : AuthDataSour
     override suspend fun postGoogleLogin(code: String): BaseResponse<ResponseGoogleLoginDto> {
         return authService.postGoogleLogin(code)
     }
-    override suspend fun postNickname(nickname: String): Boolean {
-        return runCatching { authService.postNickname(nickname) }.isSuccess
+    override suspend fun postNickname(nickname: String): BaseResponseNoData {
+        return authService.postNickname(nickname)
     }
 }
