@@ -126,11 +126,16 @@
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>
-            <androidx.compose.ui.platform.ComposeView
-                android:id="@+id/compose_view_word_card"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_card_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/main_list_bottom_padding" />
+                android:layout_height="match_parent">
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/compose_view_word_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/main_list_bottom_padding" />
+            \</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

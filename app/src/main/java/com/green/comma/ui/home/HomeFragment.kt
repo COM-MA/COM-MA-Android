@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.TextView
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.ui.Modifier
@@ -28,7 +27,7 @@ import com.green.comma.ui.card.CardDetailActivity
 import com.green.comma.util.BottomNavigationHelper
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -48,12 +47,23 @@ class HomeFragment : Fragment() {
         setNickname()
         setWordCardPreviewList()
         setFairytalePreviewList()
+        setSwipeRefresh()
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
         return root
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        binding.swipeRefreshHome.isEnabled = verticalOffset == 0
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.appbarHome.addOnOffsetChangedListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.appbarHome.removeOnOffsetChangedListener(this)
     }
 
     private fun moveToCardDetail(userCardId: Long) {
@@ -135,10 +145,6 @@ class HomeFragment : Fragment() {
                             PreviewFairytaleListItem(it.top2Fairytales[item].recommendImageUrl, 300.dp, 20.dp)
                         }
                     }
-                    DisposableEffect(Unit) {
-                        homeViewModel.loadHomeData()
-                        onDispose {}
-                    }
                 }
             }
         }
@@ -158,6 +164,13 @@ class HomeFragment : Fragment() {
             if(isBright) {
                 mWindow.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             }
+        }
+    }
+
+    private fun setSwipeRefresh(){
+        binding.swipeRefreshHome.setOnRefreshListener {
+            homeViewModel.loadHomeData()
+            binding.swipeRefreshHome.isRefreshing = false
         }
     }
 }

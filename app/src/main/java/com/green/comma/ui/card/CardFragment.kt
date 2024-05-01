@@ -26,6 +26,7 @@ class CardFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(requireContext()) }
+    private val columCount = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,22 +39,17 @@ class CardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        //val cardViewModel: CardViewModel by viewModels { ViewModelFactory(requireContext()) }
-
-        /*viewModel.viewModelScope.launch {
-            delay(Companion.debounceTime)
-            input?.toString()?.let { viewModel.getUniversityList(it) }
-        }*/
-
-        //cardViewModel.loadLatestCardList()
-
         _binding = FragmentCardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        var columCount = 2
-        val alphaTypeStr = getString(R.string.card_tv_align_alphabetical)
-        val latestTypeStr = getString(R.string.card_tv_align_latest)
-        val tvCardAlignType = binding.tvCardAlignType
 
+        setCardList()
+        setCardAlignBtn()
+        setSelectBtn()
+        setSwipeRefresh()
+
+        return binding.root
+    }
+
+    private fun setCardList(){
         cardViewModel.cardListItems.observe(viewLifecycleOwner) { it ->
             binding.composeViewWordCard.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -69,7 +65,11 @@ class CardFragment : Fragment() {
                 }
             }
         }
-
+    }
+    private fun setCardAlignBtn(){
+        val tvCardAlignType = binding.tvCardAlignType
+        val alphaTypeStr = getString(R.string.card_tv_align_alphabetical)
+        val latestTypeStr = getString(R.string.card_tv_align_latest)
         binding.btnCardAlign.setOnClickListener {
             if(tvCardAlignType.text == alphaTypeStr){
                 tvCardAlignType.text = latestTypeStr
@@ -79,15 +79,14 @@ class CardFragment : Fragment() {
                 cardViewModel.loadAlphabetCardList()
             }
         }
-
+    }
+    private fun setSelectBtn(){
         binding.includeCardToolbar.btnText.setOnClickListener {
             activity?.let{
                 val intent = Intent(context, SelectCardActivity::class.java)
                 startActivity(intent)
             }
         }
-
-        return root
     }
 
     private fun moveToCardDetail(userCardId: Long) {
@@ -95,9 +94,10 @@ class CardFragment : Fragment() {
         intent.putExtra("userCardId", userCardId)
         startActivity(intent)
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun setSwipeRefresh(){
+        binding.swipeRefreshCardList.setOnRefreshListener {
+            cardViewModel.loadLatestCardList()
+            binding.swipeRefreshCardList.isRefreshing = false
+        }
     }
 }

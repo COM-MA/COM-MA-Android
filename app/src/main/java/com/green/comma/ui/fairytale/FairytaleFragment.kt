@@ -35,20 +35,12 @@ class FairytaleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFairytaleBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        fairytaleViewModel.fairytaleItems.observe(viewLifecycleOwner) { it ->
-            binding.composeViewFairytale.apply {
-                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-                setContent {
-                    LazyColumn {
-                        items(it.size) { index ->
-                            FairytaleListItem(data = it[index], { moveToFairytale(it[index]) }, modifier = Modifier)
-                        }
-                    }
-                }
-            }
-        }
-        return root
+
+        fairytaleViewModel.loadFairytaleList()
+        setFairytaleList()
+        setSwipeRefresh()
+
+        return binding.root
     }
     @RequiresApi(Build.VERSION_CODES.O)
     private fun moveToFairytale(data: ResponseFairytaleListDto) {
@@ -63,9 +55,25 @@ class FairytaleFragment : Fragment() {
         intent.putExtra("signTag", data.signTag)
         startActivity(intent)
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun setFairytaleList(){
+        fairytaleViewModel.fairytaleItems.observe(viewLifecycleOwner) { it ->
+            binding.composeViewFairytale.apply {
+                setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+                setContent {
+                    LazyColumn {
+                        items(it.size) { index ->
+                            FairytaleListItem(data = it[index], { moveToFairytale(it[index]) }, modifier = Modifier)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    private fun setSwipeRefresh(){
+        binding.swipeRefreshFairytaleList.setOnRefreshListener {
+            fairytaleViewModel.loadFairytaleList()
+            binding.swipeRefreshFairytaleList.isRefreshing = false
+        }
     }
 }

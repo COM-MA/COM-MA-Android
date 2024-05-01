@@ -72,10 +72,15 @@
                 android:textSize="16sp" />
 
         </LinearLayout>
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/compose_view_fairytale"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_fairytale_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/main_list_bottom_padding"/>
+            android:layout_height="wrap_content">
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/compose_view_fairytale"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/main_list_bottom_padding"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
