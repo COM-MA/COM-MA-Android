@@ -27,7 +27,7 @@
         android:textColor="@color/gray_900"
         android:ems="10"
         android:inputType="text"
-        android:background="@drawable/shape_edit_white_background"
+        android:background="@drawable/shape_stroke_rect10_white_gray100"
         android:hint="@string/auth_login_edit_id" />
 
     <EditText
@@ -41,7 +41,7 @@
         android:textColor="@color/gray_900"
         android:ems="10"
         android:inputType="text"
-        android:background="@drawable/shape_edit_white_background"
+        android:background="@drawable/shape_stroke_rect10_white_gray100"
         android:hint="@string/auth_login_edit_password" />
 
     <LinearLayout
@@ -84,7 +84,7 @@
         android:layout_marginBottom="12dp"
         android:layout_marginHorizontal="2dp"
         android:fontFamily="@font/pretendard_bold"
-        android:background="@drawable/shape_button_background"
+        android:background="@drawable/shape_fill_rect8_lavender500"
         android:textSize="18sp"
         android:text="@string/auth_login_btn_login" />
 

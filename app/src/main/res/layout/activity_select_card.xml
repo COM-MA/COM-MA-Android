@@ -83,7 +83,7 @@
                 android:layout_weight="1"
                 android:elevation="8dp"
                 android:outlineSpotShadowColor="@color/gray_300"
-                android:background="@drawable/shape_button_background_gray"
+                android:background="@drawable/shape_fill_rect8_gray100"
                 android:text="@string/card_select_btn_delete"
                 android:textColor="@color/gray_500"
                 app:backgroundTint="@null" />
@@ -114,7 +114,7 @@
                     android:layout_weight="1.2"
                     android:elevation="8dp"
                     android:outlineSpotShadowColor="@color/gray_300"
-                    android:background="@drawable/shape_button_background"
+                    android:background="@drawable/shape_fill_rect8_lavender500"
                     android:text="@string/card_select_btn_make_quiz"
                     android:textColor="@color/white" />
             </LinearLayout>

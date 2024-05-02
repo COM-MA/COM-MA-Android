@@ -159,7 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/horizontal_padding"
-            android:background="@drawable/shape_button_background"
+            android:background="@drawable/shape_fill_rect8_lavender500"
             android:fontFamily="@font/pretendard_bold"
             android:visibility="invisible"
             android:text="@string/quiz_btn_next"

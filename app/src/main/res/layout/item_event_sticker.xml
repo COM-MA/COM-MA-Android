@@ -23,7 +23,7 @@
                 android:id="@+id/textView"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
-                android:background="@drawable/shape_sticker_background"
+                android:background="@drawable/shape_fill_oval_gray100"
                 android:elevation="8dp"
                 android:outlineSpotShadowColor="@color/gray_300"
                 android:gravity="center"

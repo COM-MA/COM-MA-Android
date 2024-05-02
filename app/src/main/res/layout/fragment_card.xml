@@ -56,7 +56,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_search_background"
+                    android:background="@drawable/shape_fill_rect10_gray100"
                     android:paddingHorizontal="@dimen/horizontal_padding"
                     android:orientation="horizontal">
                     <EditText

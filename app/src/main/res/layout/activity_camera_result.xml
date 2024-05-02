@@ -159,7 +159,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@drawable/shape_button_background"
+            android:background="@drawable/shape_fill_rect8_lavender500"
             android:fontFamily="@font/pretendard_bold"
             android:text="@string/camera_detail_btn_recog_again"
             android:textSize="22dp" />
@@ -220,7 +220,7 @@
                 android:layout_height="42dp"
                 android:layout_marginTop="25dp"
                 app:backgroundTint="@null"
-                android:background="@drawable/shape_card_button_background"
+                android:background="@drawable/shape_fill_rect14_lavender200"
                 android:fontFamily="@font/pretendard_bold"
                 android:gravity="center"
                 android:paddingVertical="0dp"
