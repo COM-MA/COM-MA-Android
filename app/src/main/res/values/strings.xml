@@ -11,7 +11,7 @@
     <string name="title_card">단어 카드</string>
     <string name="title_camera">카메라 인식</string>
     <string name="title_content">동화</string>
-    <string name="title_user">프로필</string>
+    <string name="title_today">감정</string>
 
     <string name="home_tv_greeting">님, 반가워요!</string>
     <string name="home_tv_event_cheering">오늘도 한판 채우기!</string>
@@ -81,5 +81,22 @@
     <string name="auth_nickname_text_mynickname">내 별명</string>
     <string name="auth_nickname_edit_hint">별명을 입력해주세요.</string>
     <string name="auth_nickname_btn_complete">완료했어요!</string>
+
+    <string name="today_feeling_text_descr">오늘 하루의 기분을 스티커로 표현해보세요!</string>
+    <string name="today_feeling_text_sub_descr">함께 붙여주세요!</string>
+    <string name="today_feeling_text_child">아이</string>
+    <string name="today_feeling_text_parents">부모</string>
+    <string name="today_feeling_text_select_descr">기분을 등록 할 사람을\n선택해 주세요</string>
+    <string name="today_feeling_btn_complete">완료하기</string>
+
+    <string name="today_feeling_emoji_title_soso">그저 그래요</string>
+    <string name="today_feeling_emoji_title_mad">화나요</string>
+    <string name="today_feeling_emoji_title_sad">슬퍼요</string>
+    <string name="today_feeling_emoji_title_calm">평온해요</string>
+    <string name="today_feeling_emoji_title_depressed">우울해요</string>
+    <string name="today_feeling_emoji_title_happy">행복해요</string>
+    <string name="today_feeling_emoji_title_proud">뿌듯해요</string>
+    <string name="today_feeling_emoji_title_anxious">불안해요</string>
+    <string name="today_feeling_emoji_title_idontknow">모르겠어요</string>
 
 </resources>

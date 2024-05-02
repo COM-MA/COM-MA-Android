@@ -21,8 +21,8 @@
         android:title="@string/title_content" />
 
     <item
-        android:id="@+id/navigation_user"
+        android:id="@+id/navigation_today"
         android:icon="@drawable/selector_user"
-        android:title="@string/title_user" />
+        android:title="@string/title_today" />
 
 </menu>
