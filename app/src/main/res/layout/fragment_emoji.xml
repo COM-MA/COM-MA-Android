@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context=".ui.today.TodayFragment">
+    android:id="@+id/ll_emoji_fragment"
+    tools:context=".ui.emoji.EmojiFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -139,5 +140,10 @@
         android:textSize="18sp"
         android:textColor="@color/gray_300"
         android:text="@string/today_feeling_text_select_descr" />
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/compose_view_select_emoji"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -11,7 +11,7 @@
     <string name="title_card">단어 카드</string>
     <string name="title_camera">카메라 인식</string>
     <string name="title_content">동화</string>
-    <string name="title_today">감정</string>
+    <string name="title_emoji">감정</string>
 
     <string name="home_tv_greeting">님, 반가워요!</string>
     <string name="home_tv_event_cheering">오늘도 한판 채우기!</string>
@@ -98,5 +98,15 @@
     <string name="today_feeling_emoji_title_proud">뿌듯해요</string>
     <string name="today_feeling_emoji_title_anxious">불안해요</string>
     <string name="today_feeling_emoji_title_idontknow">모르겠어요</string>
+
+    <string name="today_feeling_emoji_day_soso">그저 그런 날</string>
+    <string name="today_feeling_emoji_day_mad">화나는 날</string>
+    <string name="today_feeling_emoji_day_sad">슬픈 날</string>
+    <string name="today_feeling_emoji_day_calm">평온한 날</string>
+    <string name="today_feeling_emoji_day_depressed">우울한 날</string>
+    <string name="today_feeling_emoji_day_happy">행복한 날</string>
+    <string name="today_feeling_emoji_day_proud">뿌듯한 날</string>
+    <string name="today_feeling_emoji_day_anxious">불안한 날</string>
+    <string name="today_feeling_emoji_day_idontknow">잘 모르겠는 날</string>
 
 </resources>

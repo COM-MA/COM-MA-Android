@@ -29,8 +29,8 @@
         tools:layout="@layout/fragment_fairytale" />
 
     <fragment
-        android:id="@+id/navigation_today"
-        android:name="com.green.comma.ui.today.TodayFragment"
-        android:label="@string/title_today"
-        tools:layout="@layout/fragment_today" />
+        android:id="@+id/navigation_emoji"
+        android:name="com.green.comma.ui.emoji.EmojiFragment"
+        android:label="@string/title_emoji"
+        tools:layout="@layout/fragment_emoji" />
 </navigation>
