@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,9 +29,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import com.green.comma.ui.compose.theme.Gray100
 import com.green.comma.ui.compose.theme.Gray300
+import com.green.comma.ui.compose.theme.Gray500
 import com.green.comma.ui.compose.theme.Gray700
 import com.green.comma.ui.compose.theme.Lavender500
 
@@ -41,23 +44,24 @@ fun SearchResultListItem(searchText: String, title: String, descr: String, form:
 
     Surface(
         modifier = modifier
-            .padding(bottom = 2.dp)
             .fillMaxWidth()
-            .height(80.dp)
+            .wrapContentHeight()
+            .padding(bottom = 4.dp)
             .shadow(
                 elevation = 2.dp,
-                ambientColor = Gray300,
-                spotColor = Gray300
+                ambientColor = Gray500,
+                spotColor = Gray500
             ),
+        onClick = {},
         color = Color.White,
     ) {
         Row(
-            modifier = modifier.fillMaxSize().padding(vertical = 10.dp),
+            modifier = modifier.fillMaxSize().padding(vertical = 14.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(
-                modifier = modifier.weight(1f),
+                modifier = modifier.weight(1f).padding(end = 10.dp),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -72,7 +76,9 @@ fun SearchResultListItem(searchText: String, title: String, descr: String, form:
                     )
                 )
                 Text(
-                    text = descr,
+                    text = descr.trimStart(),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     style = TextStyle(
                         fontFamily = pretendard,
                         fontWeight = FontWeight.Normal,
@@ -99,7 +105,7 @@ fun SearchResultListItem(searchText: String, title: String, descr: String, form:
                     )
                 )
             }
-            Button(
+            /*Button(
                 colors = ButtonDefaults.buttonColors(Color.White),
                 shape = RoundedCornerShape(6.dp),
                 border = BorderStroke(1.dp, Gray300),
@@ -116,29 +122,32 @@ fun SearchResultListItem(searchText: String, title: String, descr: String, form:
                         textAlign = TextAlign.Center
                     )
                 )
-            }
+            }*/
         }
     }
 }
 
 fun setResultText(resultText: String, searchText: String): AnnotatedString {
 
-    val start = resultText.indexOf(searchText)
-    val end = start + searchText.length
+    var start = resultText.indexOf(searchText)
+    var end = start + searchText.length
 
-    val front = resultText.substring(0, start)
-    val back = resultText.substring(end)
+    if(start > -1) {
+        val front = resultText.substring(0, start)
+        val back = resultText.substring(end)
 
-    val text = buildAnnotatedString {
-        append(front)
-        withStyle(SpanStyle(color = Lavender500)) {
-            append(searchText)
+        val text = buildAnnotatedString {
+            append(front)
+            withStyle(SpanStyle(color = Lavender500)) {
+                append(searchText)
+            }
+            append(back)
         }
-        append(back)
-    }
 
+        return text
+    }
     /*val spannableString = buildAnnotatedString {  }(resultText)
     spannableString.setSpan(ForegroundColorSpan(Lavender500.hashCode()), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 */
-    return text
+    return buildAnnotatedString { append(resultText) }
 }

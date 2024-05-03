@@ -58,13 +58,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_fill_rect10_gray100"
-                    android:paddingHorizontal="@dimen/horizontal_padding"
+                    android:paddingHorizontal="20dp"
                     android:orientation="horizontal">
                     <EditText
                         android:id="@+id/edit_search_word"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:maxLines="1"
                         android:backgroundTint="@android:color/transparent"
                         android:fontFamily="@font/pretendard_regular"
                         android:hint="@string/card_search_edit_hint_search_word"
@@ -76,6 +77,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:background="@null"
+                        android:clickable="true"
                         android:layout_gravity="left|center_vertical"
                         android:src="@drawable/ic_search_gray"/>
                 </LinearLayout>
@@ -92,17 +94,12 @@
                     android:text="@string/card_search_tv_result" />
 
             </LinearLayout>
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_refresh_word_search_result_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/horizontal_padding">
                 <androidx.compose.ui.platform.ComposeView
                     android:id="@+id/compose_view_word_search_result"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/horizontal_padding"
                     android:paddingBottom="@dimen/main_list_bottom_padding" />
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

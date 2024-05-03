@@ -3,6 +3,7 @@ package com.green.comma.data
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import com.green.comma.CommaApplication
 import com.green.comma.R
 import com.green.comma.ui.auth.AuthActivity
@@ -18,6 +19,7 @@ import java.security.cert.Certificate
 import java.security.cert.CertificateException
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
+import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
@@ -92,7 +94,11 @@ object ApiClient {
         return okHttpClient.addInterceptor(interceptor)
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
-            }).build()
+            })
+            .connectTimeout(200, TimeUnit.SECONDS)
+            .readTimeout(200,TimeUnit.SECONDS)
+            .writeTimeout(200,TimeUnit.SECONDS)
+            .build()
     }
 
     class AppInterceptor(private val context: Context, private val accessToken: String) : Interceptor {
@@ -105,9 +111,12 @@ object ApiClient {
 
             val response = proceed(newRequest)
             when (response.code) {
-                401, 404, 500 -> {
+                401, 404 -> {
                     context.startActivity(Intent(context, AuthActivity::class.java))
                     Log.d("API FAILURE", response.toString())
+                }
+                500 -> {
+                    Log.d("API FAILURE 500", response.toString())
                 }
             }
             response

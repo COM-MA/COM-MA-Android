@@ -121,4 +121,6 @@
     <string name="today_feeling_emoji_day_anxious">\&apos;불안한 날\&apos;</string>
     <string name="today_feeling_emoji_day_idontknow">\&apos;잘 모르겠는 날\&apos;</string>
 
+    <string name="progress_dialog_tv_wait_a_second">잠시만 기다려주세요...</string>
+
 </resources>
