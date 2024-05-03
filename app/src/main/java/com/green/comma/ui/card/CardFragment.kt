@@ -42,6 +42,7 @@ class CardFragment : Fragment() {
         _binding = FragmentCardBinding.inflate(inflater, container, false)
 
         setCardList()
+        setAddCardBtn()
         setCardAlignBtn()
         setSelectBtn()
         setSwipeRefresh()
@@ -63,6 +64,14 @@ class CardFragment : Fragment() {
                         }
                     }
                 }
+            }
+        }
+    }
+    private fun setAddCardBtn(){
+        binding.btnAddCard.setOnClickListener {
+            activity?.let{
+                val intent = Intent(context, CardSearchActivity::class.java)
+                startActivity(intent)
             }
         }
     }

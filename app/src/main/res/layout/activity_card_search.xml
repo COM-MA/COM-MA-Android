@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.card.CardSearchActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:contentInsetStart="0dp">
+            <include
+                android:id="@+id/include_card_toolbar"
+                layout="@layout/item_tool_bar"
+                app:isBackExist="@{true}"
+                app:isTextBtnExist="@{false}"
+                app:btnText="@{@string/card_btn_select}"/>
+        </androidx.appcompat.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/horizontal_padding"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@string/card_search_tv_search_word"
+                    android:textColor="@color/gray_900"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:paddingVertical="10dp"
+                    android:text="@string/card_search_tv_search_word_descr"
+                    android:textColor="@color/gray_700"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_fill_rect10_gray100"
+                    android:paddingHorizontal="@dimen/horizontal_padding"
+                    android:orientation="horizontal">
+                    <EditText
+                        android:id="@+id/edit_search_word"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@android:color/transparent"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:hint="@string/card_search_edit_hint_search_word"
+                        android:textColorHint="@color/gray_500"
+                        android:textColor="@color/gray_700"
+                        android:textSize="18sp"/>
+                    <ImageButton
+                        android:id="@+id/btn_search"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@null"
+                        android:layout_gravity="left|center_vertical"
+                        android:src="@drawable/ic_search_gray"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_search_result_descr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="12dp"
+                    android:visibility="invisible"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:textColor="@color/gray_700"
+                    android:textSize="16sp"
+                    android:text="@string/card_search_tv_result" />
+
+            </LinearLayout>
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_word_search_result_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/horizontal_padding">
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/compose_view_word_search_result"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/main_list_bottom_padding" />
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

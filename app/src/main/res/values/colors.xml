@@ -15,6 +15,9 @@
     <color name="gray_500">#FFAAAAAA</color>
     <color name="gray_700">#FF787878</color>
     <color name="gray_900">#FF3F3F3F</color>
-    <color name="beige_500">#FFFFEFD3</color>
+    <color name="orange_100">#FFFFEFD3</color>
+    <color name="orange_500">#FF8E3D</color>
     <color name="vermilion_500">#FFFF4820</color>
+    <color name="green_100">#FFE8F8DE</color>
+    <color name="green_500">#FF6FD032</color>
 </resources>
