@@ -68,13 +68,13 @@ fun EmojiBottomSheet(visibility: Boolean, modifier: Modifier) {
                                 modifier = modifier
                                     .height(86.dp)
                                     .width(86.dp),
-                                model = EmojiControl.emojiList[idx][0],
+                                model = EmojiControl.emojiList[idx].img,
                                 contentScale = ContentScale.Fit,
-                                contentDescription = stringResource(id = EmojiControl.emojiList[idx][1]),
+                                contentDescription = stringResource(id = EmojiControl.emojiList[idx].name),
                             )
                             Text(
                                 modifier = modifier.padding(top = 6.dp),
-                                text = stringResource(id = EmojiControl.emojiList[idx][1]),
+                                text = stringResource(id = EmojiControl.emojiList[idx].name),
                                 style = TextStyle(
                                     fontFamily = pretendard,
                                     fontWeight = FontWeight.Bold,

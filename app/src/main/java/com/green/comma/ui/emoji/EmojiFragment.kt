@@ -16,11 +16,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import com.green.comma.R
+import com.green.comma.data.request.emoji.RequestEmotionDto
 import com.green.comma.databinding.FragmentEmojiBinding
 import com.green.comma.ui.compose.EmojiBottomSheet
 import com.green.comma.ui.compose.theme.Lavender500
+import com.green.comma.ui.fairytale.FairytaleViewModel
+import com.green.comma.ui.fairytale.FairytaleViewModelFactory
 
 class EmojiFragment : Fragment() {
     private var _binding: FragmentEmojiBinding? = null
@@ -28,6 +32,7 @@ class EmojiFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private val emojiViewModel: EmojiViewModel by viewModels { EmojiViewModelFactory(requireContext()) }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -40,6 +45,7 @@ class EmojiFragment : Fragment() {
         setStickerBtn()
         setStickerEmoji()
         setSelectComplete()
+        setCompleteBtn()
         return binding.root
     }
 
@@ -48,7 +54,6 @@ class EmojiFragment : Fragment() {
         _binding = null
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     private fun setBottomSheetDialog() {
         EmojiControl.isBottomSheetActive.observe(viewLifecycleOwner){
             binding.composeViewSelectEmoji.apply {
@@ -66,7 +71,7 @@ class EmojiFragment : Fragment() {
         EmojiControl.isChildSelected.observe(viewLifecycleOwner){
             val emojiIdx = EmojiControl.childEmojiIdx.value
             if(emojiIdx != null && emojiIdx > -1){
-                binding.btnStickerChild.background = resources.getDrawable(EmojiControl.emojiList[emojiIdx][0])
+                binding.btnStickerChild.background = resources.getDrawable(EmojiControl.emojiList[emojiIdx].img)
                 binding.btnStickerChild.text = ""
             } else {
                 binding.btnStickerChild.background = resources.getDrawable(if(it) selectedBg else basicBg)
@@ -77,7 +82,7 @@ class EmojiFragment : Fragment() {
         EmojiControl.isParentsSelected.observe(viewLifecycleOwner){
             val emojiIdx = EmojiControl.parentsEmojiIdx.value
             if(emojiIdx != null && emojiIdx > -1){
-                binding.btnStickerParents.background = resources.getDrawable(EmojiControl.emojiList[emojiIdx][0])
+                binding.btnStickerParents.background = resources.getDrawable(EmojiControl.emojiList[emojiIdx].img)
                 binding.btnStickerParents.text = ""
             } else {
                 binding.btnStickerParents.background = resources.getDrawable(if(it) selectedBg else basicBg)
@@ -96,7 +101,7 @@ class EmojiFragment : Fragment() {
     private fun setStickerEmoji(){
         EmojiControl.parentsEmojiIdx.observe(viewLifecycleOwner){
             if(it > 0){
-                binding.btnStickerParents.background = resources.getDrawable(EmojiControl.emojiList[it][0])
+                binding.btnStickerParents.background = resources.getDrawable(EmojiControl.emojiList[it].img)
                 binding.btnStickerParents.text = ""
             }
         }
@@ -121,8 +126,8 @@ class EmojiFragment : Fragment() {
     }
 
     private fun setResultText(childIdx: Int, parentsIdx: Int): SpannableStringBuilder {
-        val strChild = getString(EmojiControl.emojiList[childIdx][2])
-        val strParents = getString(EmojiControl.emojiList[parentsIdx][2])
+        val strChild = getString(EmojiControl.emojiList[childIdx].day)
+        val strParents = getString(EmojiControl.emojiList[parentsIdx].day)
         val resultText = "오늘은\n아이는 $strChild,\n부모는 $strParents 이에요!"
 
         val childStart = resultText.indexOf(strChild)
@@ -141,5 +146,20 @@ class EmojiFragment : Fragment() {
         }
 
         return spannableString
+    }
+
+    private fun setCompleteBtn(){
+        binding.btnEmojiComplete.setOnClickListener {
+            val childIdx = EmojiControl.childEmojiIdx.value
+            val parentsIdx = EmojiControl.parentsEmojiIdx.value
+
+            if(childIdx!! > -1 && parentsIdx!! > -1){
+                val childEnum = EmojiControl.emojiList[childIdx].enum.toString()
+                val parentsEnum = EmojiControl.emojiList[parentsIdx].enum.toString()
+
+                var requestData = RequestEmotionDto(parentsEnum, childEnum)
+                emojiViewModel.postEmoji(requestData)
+            }
+        }
     }
 }
