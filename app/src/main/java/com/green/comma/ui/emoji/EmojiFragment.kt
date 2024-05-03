@@ -29,6 +29,7 @@ class EmojiFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -113,28 +114,32 @@ class EmojiFragment : Fragment() {
                 val parentsIdx = EmojiControl.parentsEmojiIdx.value
 
                 if(childIdx!! > -1 && parentsIdx!! > -1){
-                    val strChild = getString(EmojiControl.emojiList[childIdx][2])
-                    val strParents = getString(EmojiControl.emojiList[parentsIdx][2])
-                    val resultText = "오늘은\n아이는 $strChild,\n부모는 $strParents 이에요!"
-
-                    val childStart = resultText.indexOf(strChild)
-                    val childEnd = childStart + strChild.length
-
-                    val parentsStart = resultText.indexOf(strParents)
-                    val parentsEnd = parentsStart + strParents.length
-
-                    val spannableString = SpannableStringBuilder(resultText)
-                    spannableString.apply {
-                        setSpan(ForegroundColorSpan(resources.getColor(R.color.lavender_500)), childStart, childEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                        setSpan(StyleSpan(Typeface.BOLD), childStart, childEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-                        setSpan(ForegroundColorSpan(resources.getColor(R.color.lavender_500)), parentsStart, parentsEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                        setSpan(StyleSpan(Typeface.BOLD), parentsStart, parentsEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    }
-
-                    binding.tvEmojiResult.text = spannableString
+                    binding.tvEmojiResult.text = setResultText(childIdx, parentsIdx)
                 }
             }
         }
+    }
+
+    private fun setResultText(childIdx: Int, parentsIdx: Int): SpannableStringBuilder {
+        val strChild = getString(EmojiControl.emojiList[childIdx][2])
+        val strParents = getString(EmojiControl.emojiList[parentsIdx][2])
+        val resultText = "오늘은\n아이는 $strChild,\n부모는 $strParents 이에요!"
+
+        val childStart = resultText.indexOf(strChild)
+        val childEnd = childStart + strChild.length
+
+        val parentsStart = resultText.indexOf(strParents)
+        val parentsEnd = parentsStart + strParents.length
+
+        val spannableString = SpannableStringBuilder(resultText)
+        spannableString.apply {
+            setSpan(ForegroundColorSpan(resources.getColor(R.color.lavender_500)), childStart, childEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(StyleSpan(Typeface.BOLD), childStart, childEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+            setSpan(ForegroundColorSpan(resources.getColor(R.color.lavender_500)), parentsStart, parentsEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            setSpan(StyleSpan(Typeface.BOLD), parentsStart, parentsEnd, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+
+        return spannableString
     }
 }
