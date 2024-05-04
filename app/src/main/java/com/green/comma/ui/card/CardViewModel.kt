@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.data.repository.CardRepository
+import com.green.comma.data.request.card.RequestCardCreateDto
 import com.green.comma.data.response.card.ResponseCardDetailDto
 import com.green.comma.data.response.card.ResponseCardRecogDetailDto
 import com.green.comma.data.response.card.ResponseSearchResultDto
@@ -60,11 +61,26 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
         }
     }
 
-    fun loadCardRecogDetail(name: String) {
+    fun loadCardRecogDetail(searchWord: String, context: Context): Boolean {
+        val loadingDialog = LoadingDialog(context)
+        var isSuccess = false
         viewModelScope.launch {
-            val cardRecogDetail = cardRepository.getCardRecogDetail(name)
-            _cardRecogDetailItem.value = cardRecogDetail
+            loadingDialog.show()
+            cardRepository.getCardRecogDetail(searchWord)
+                .onSuccess {
+                    _cardRecogDetailItem.value = it
+                    loadingDialog.dismiss()
+                    isSuccess = true
+                }
+                .onFailure {
+                    Log.d("GET WORD DETAIL DATA FAILURE", it.toString())
+                    Toast.makeText(context, "데이터를 가져오는데 실패했어요.", Toast.LENGTH_SHORT).show()
+                    loadingDialog.dismiss()
+                    isSuccess = false
+                }
         }
+
+        return isSuccess
     }
 
     fun loadSearchResultList(name: String, context: Context) {
@@ -82,12 +98,18 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
                     loadingDialog.dismiss()
                 }
         }
-}
+    }
 
-    fun postCardCreate(cardId: Long){
+    fun postCardCreate(cardId: Long, requestData: RequestCardCreateDto, context: Context){
         viewModelScope.launch {
-            val createResult  = cardRepository.postCardCreate(cardId)
-            _cardCreateResult.value = createResult
+            cardRepository.postCardCreate(cardId, requestData)
+                .onSuccess {
+                    _cardCreateResult.value = true
+                }
+                .onFailure {
+                    Log.d("POST CARD CREATE FAILURE", it.toString())
+                    Toast.makeText(context, "이미 등록된 단어카드입니다.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 
@@ -97,4 +119,6 @@ class CardViewModel(private val cardRepository: CardRepository) : ViewModel() {
             _cardDeleteResult.value = cardDeleteResult
         }
     }
+
+
 }

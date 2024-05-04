@@ -1,11 +1,13 @@
 package com.green.comma.data.service
 
+import com.green.comma.data.request.card.RequestCardCreateDto
 import com.green.comma.data.response.BaseResponse
 import com.green.comma.data.response.BaseResponseNoData
 import com.green.comma.data.response.card.ResponseCardDetailDto
 import com.green.comma.data.response.card.ResponseCardListDto
 import com.green.comma.data.response.card.ResponseCardRecogDetailDto
 import com.green.comma.data.response.card.ResponseSearchResultDto
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -19,15 +21,14 @@ interface CardService {
     @GET("/api/card/alphabet")
     suspend fun getAlphabetCardList(
     ): BaseResponse<List<ResponseCardListDto>>
-    @GET("/api/card/detail/{userCardId}")
-    suspend fun getCardDetailList(
+    @GET("/api/card/my-card/{userCardId}")
+    suspend fun getCardDetail(
         @Path("userCardId") userCardId: Long,
     ): BaseResponse<ResponseCardDetailDto>
-    @GET("/api/card/{name}")
+    @GET("/api/card/search-details")
     suspend fun getCardRecogDetail(
-        @Path("name") name: String,
+        @Query("searchWord") searchWord: String,
     ): BaseResponse<ResponseCardRecogDetailDto>
-
     @GET("/api/card/search-word")
     suspend fun getSearchWordResultList(
         @Query("searchWord") searchWord: String,
@@ -35,6 +36,7 @@ interface CardService {
     @POST("/api/card/{cardId}")
     suspend fun postCardCreate(
         @Path("cardId") cardId: Long,
+        @Body body: RequestCardCreateDto
     ): BaseResponseNoData
     @DELETE("/api/card/{userCardId}")
     suspend fun deleteCard(

@@ -5,12 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseCardDetailDto(
-    @SerialName("id")
-    val id: Long,
     @SerialName("name")
     val name: String,
     @SerialName("cardImageUrl")
     val cardImageUrl: String,
     @SerialName("signImageUrl")
-    val signImageUrl: String
+    val signImageUrl: String,
+    @SerialName("signLanguageDescription")
+    val signLanguageDescription: String
 )

@@ -1,5 +1,6 @@
 package com.green.comma.ui.card
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -18,7 +19,7 @@ class CardSearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCardSearchBinding
     private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(applicationContext) }
-    private var searchWord: String = ""
+    private var inputWord: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCardSearchBinding.inflate(layoutInflater)
@@ -49,24 +50,25 @@ class CardSearchActivity : AppCompatActivity() {
     private fun setResultList() {
         //var intent = Intent(this, LoadingDialog::class.java)
         //startActivity(intent)
-        searchWord = binding.editSearchWord.text.toString()
-        if(searchWord.isNotEmpty()){
-            cardViewModel.loadSearchResultList(searchWord, this)
+        inputWord = binding.editSearchWord.text.toString()
+        if(inputWord.isNotEmpty()){
+            cardViewModel.loadSearchResultList(inputWord, this)
             //binding.tvSearchResultDescr.text = "\"$searchWord\"" + getString(R.string.card_search_tv_result)
         }
         cardViewModel.searchResultList.observe(this){
             binding.tvSearchResultDescr.visibility = View.VISIBLE
-            binding.tvSearchResultDescr.text = "\"$searchWord\"" + getString(R.string.card_search_tv_result)
+            binding.tvSearchResultDescr.text = "\"$inputWord\"" + getString(R.string.card_search_tv_result)
             binding.composeViewWordSearchResult.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 setContent {
                     LazyColumn {
                         items(it.size) { idx ->
                             SearchResultListItem(
-                                searchText = searchWord,
+                                searchText = inputWord,
                                 title = it[idx].word,
                                 descr = it[idx].description,
                                 form = it[idx].partsOfSeech,
+                                onClick = { moveToDetailActivity(it[idx].word) },
                                 modifier = Modifier
                             )
                         }
@@ -74,5 +76,11 @@ class CardSearchActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun moveToDetailActivity(searchWord: String) {
+        val intent = Intent(this, CardSearchDetailActivity::class.java)
+        intent.putExtra(getString(R.string.search_word), searchWord)
+        startActivity(intent)
     }
 }

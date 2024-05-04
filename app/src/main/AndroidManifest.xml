@@ -37,6 +37,10 @@
             android:name=".ui.auth.AuthNicknameActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.card.CardSearchWayDialogActivity"
+            android:exported="false"
+            android:theme="@style/CustomDialogDarkTheme" />
+        <activity
             android:name=".ui.camera.CameraLoadingDialogActivity"
             android:exported="false"
             android:theme="@style/CustomDialogDarkTheme" />
@@ -61,7 +65,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.card.CardDetailActivity"
-            android:exported="false" />
+            android:exported="false"  />
         <activity
             android:name=".ui.auth.AuthActivity"
             android:exported="true" />

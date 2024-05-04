@@ -70,7 +70,7 @@ class CardFragment : Fragment() {
     private fun setAddCardBtn(){
         binding.btnAddCard.setOnClickListener {
             activity?.let{
-                val intent = Intent(context, CardSearchActivity::class.java)
+                val intent = Intent(context, CardSearchWayDialogActivity::class.java)
                 startActivity(intent)
             }
         }

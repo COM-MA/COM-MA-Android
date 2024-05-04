@@ -3,6 +3,7 @@
 
     <string name="access_token">accessToken</string>
     <string name="nickname">nickname</string>
+    <string name="search_word">searchWord</string>
 
     <string name="client_id_android">946848719057-qm2dicelojce0i9qo76i4ia82etne4cp.apps.googleusercontent.com</string>
     <string name="client_id_web">946848719057-10a9o0g40b346nvde0qsvjc9rhif08ef.apps.googleusercontent.com</string>
@@ -24,6 +25,8 @@
     <string name="home_event_tv_word">단어</string>
     <string name="home_event_tv_quiz">퀴즈</string>
     <string name="home_event_tv_fairytale">동화</string>
+    <string name="home_event_emoji_tv_title">오늘 하루, 서로의 감정을 공유해봐요</string>
+    <string name="home_event_emoji_tv_enroll">등록하기</string>
 
     <string name="card_btn_select">선택</string>
     <string name="card_btn_add_card">단어카드 추가하기</string>
@@ -35,6 +38,7 @@
     <string name="card_detail_btn_delete">삭제</string>
     <string name="card_detail_tv_title">단어카드 상세보기</string>
     <string name="card_btn_goback">돌아가기</string>
+    <string name="card_tv_sign_method">수화 방법</string>
 
     <string name="card_select_toolbar_btn_cancle">취소</string>
     <string name="card_select_tv_word_card">단어 카드</string>
@@ -52,6 +56,11 @@
     <string name="card_search_detail_tv_word_info">단어정보</string>
     <string name="card_search_detail_tv_sign_info">수화정보</string>
     <string name="card_search_detail_tv_listen_sound">소리듣기</string>
+
+    <string name="card_search_way_dialog_btn_cancel">취소하기</string>
+    <string name="card_search_way_dialog_tv_title">어떤 방식으로 추가하시나요?</string>
+    <string name="card_search_way_dialog_tv_search_with_word">단어를\n검색해서 추가</string>
+    <string name="card_search_way_dialog_tv_search_with_sign_recog">수화를\n인식해서 추가</string>
 
     <string name="content_list_title">동화 리스트</string>
     <string name="content_list_description">영상으로 재생되는 동화로 재미있게 학습해요!</string>
@@ -122,5 +131,4 @@
     <string name="today_feeling_emoji_day_idontknow">\&apos;잘 모르겠는 날\&apos;</string>
 
     <string name="progress_dialog_tv_wait_a_second">잠시만 기다려주세요...</string>
-
 </resources>

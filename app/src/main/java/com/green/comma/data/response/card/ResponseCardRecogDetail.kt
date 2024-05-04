@@ -5,10 +5,18 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseCardRecogDetailDto(
-    @SerialName("CardId")
-    val CardId: Long,
-    @SerialName("CardImageUrl")
-    val CardImageUrl: String,
-    @SerialName("SignImageUrl")
-    val SignImageUrl: String,
+    @SerialName("cardId")
+    val cardId: Long,
+    @SerialName("word")
+    val word: String,
+    @SerialName("description")
+    val description: String,
+    @SerialName("partsOfSeech")
+    val partsOfSeech: String,
+    @SerialName("cardImageUrl")
+    val cardImageUrl: String,
+    @SerialName("signImageUrl")
+    val signImageUrl: String,
+    @SerialName("signLanguageDescription")
+    val signLanguageDescription: String,
 )

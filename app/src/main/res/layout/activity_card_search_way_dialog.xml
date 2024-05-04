@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:paddingBottom="20dp"
+    tools:context=".ui.card.CardSearchWayDialogActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            style="@style/bold_22_900"
+            android:textColor="@color/white"
+            android:text="@string/card_search_way_dialog_tv_title" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/btn_recog_with_word"
+                android:layout_width="154dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="7dp"
+                android:clickable="true"
+                android:paddingTop="30dp"
+                android:paddingBottom="20dp"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/shape_fill_rect10_white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    style="@style/bold_18_900"
+                    android:text="@string/card_search_way_dialog_tv_search_with_word" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:src="@drawable/img_word_recog" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_recog_with_sign"
+                android:layout_width="154dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp"
+                android:clickable="true"
+                android:paddingTop="30dp"
+                android:paddingBottom="20dp"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/shape_fill_rect10_white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/bold_18_900"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/card_search_way_dialog_tv_search_with_sign_recog" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:src="@drawable/img_sign_recog" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

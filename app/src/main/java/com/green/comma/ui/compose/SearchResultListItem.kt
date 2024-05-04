@@ -38,7 +38,7 @@ import com.green.comma.ui.compose.theme.Gray700
 import com.green.comma.ui.compose.theme.Lavender500
 
 @Composable
-fun SearchResultListItem(searchText: String, title: String, descr: String, form: String, modifier: Modifier) {
+fun SearchResultListItem(searchText: String, title: String, descr: String, form: String, onClick: () -> Unit, modifier: Modifier) {
 
     val title = setResultText(title, searchText)
 
@@ -52,7 +52,7 @@ fun SearchResultListItem(searchText: String, title: String, descr: String, form:
                 ambientColor = Gray500,
                 spotColor = Gray500
             ),
-        onClick = {},
+        onClick = onClick,
         color = Color.White,
     ) {
         Row(

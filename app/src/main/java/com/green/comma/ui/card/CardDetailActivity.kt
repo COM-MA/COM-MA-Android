@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.green.comma.R
@@ -16,6 +17,7 @@ class CardDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCardDetailBinding
     private val cardViewModel: CardViewModel by viewModels { CardViewModelFactory(applicationContext) }
+    private val isReversed: MutableLiveData<Boolean> = MutableLiveData(false)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_detail)
@@ -42,10 +44,6 @@ class CardDetailActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.btnBigBack.setOnClickListener {
-            finish()
-        }
-
         binding.btnDelete.setOnClickListener {
             cardViewModel.deleteCard(userCardId)
             cardViewModel.cardDeleteResult.observe(this){
@@ -56,6 +54,14 @@ class CardDetailActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "삭제에 실패했어요", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+
+        binding.imgCardSign.setOnClickListener {
+            if(isReversed.value == true){
+                if(binding.llSignDescr.visibility == View.VISIBLE)
+                    binding.llSignDescr.visibility = View.INVISIBLE
+                else binding.llSignDescr.visibility = View.VISIBLE
             }
         }
         setContentView(binding.root)
@@ -71,17 +77,16 @@ class CardDetailActivity : AppCompatActivity() {
             .into(binding.imgCardSign)
 
         binding.tvCardName.text = item.name
+        binding.tvSignDescr.text = item.signLanguageDescription
 
         binding.btnCardReverse.setOnClickListener{
-            if(binding.imgCardSign.visibility == View.INVISIBLE) {
-                binding.tvCardName.visibility = View.INVISIBLE
-                binding.imgCardImage.visibility = View.INVISIBLE
-                binding.imgCardSign.visibility = View.VISIBLE
-            } else {
-                binding.tvCardName.visibility = View.VISIBLE
-                binding.imgCardImage.visibility = View.VISIBLE
-                binding.imgCardSign.visibility = View.INVISIBLE
-            }
+            isReversed.value = isReversed.value != true
+        }
+
+        isReversed.observe(this) {
+            binding.tvCardName.visibility = if(it) View.INVISIBLE else View.VISIBLE
+            binding.imgCardImage.visibility = if(it) View.INVISIBLE else View.VISIBLE
+            binding.imgCardSign.visibility = if(it) View.VISIBLE else View.INVISIBLE
         }
     }
 }

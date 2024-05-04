@@ -12,6 +12,12 @@
         <item name = "android:textColor">@color/gray_900</item>
     </style>
 
+    <style name = "medium_12_900">
+        <item name = "android:fontFamily">@font/pretendard_medium</item>
+        <item name = "android:textSize">12sp</item>
+        <item name = "android:textColor">@color/gray_900</item>
+    </style>
+
     <style name = "medium_14_900">
         <item name = "android:fontFamily">@font/pretendard_medium</item>
         <item name = "android:textSize">14sp</item>
