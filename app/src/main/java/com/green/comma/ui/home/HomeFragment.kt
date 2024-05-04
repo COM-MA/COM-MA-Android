@@ -33,6 +33,13 @@ class HomeFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModels { HomeViewModelFactory(requireContext()) }
 
+    private var isSwipeRefreshSet = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        println("onCreate")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,13 +50,21 @@ class HomeFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         val root: View = binding.root
         homeViewModel.loadHomeData()
 
-        setEvent()
-        setNickname()
+        initViewPager()
+
+        /*setEvent()
+        setNickname()*/
         setWordCardPreviewList()
         setFairytalePreviewList()
         setSwipeRefresh()
 
         return root
+    }
+
+
+    private fun initViewPager() {
+        val viewPagerAdapter = ViewPagerAdapter(requireActivity(), homeViewModel)
+        binding.viewpager.adapter = viewPagerAdapter
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
@@ -89,7 +104,7 @@ class HomeFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         updateStatusBarColor(false, R.color.white)
     }
 
-    private fun setEvent() {
+    /*private fun setEvent() {
         homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
             binding.includeStickerAttend.imgSticker.visibility = View.VISIBLE
 
@@ -103,18 +118,20 @@ class HomeFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             binding.includeStickerFairytale.imgSticker.visibility = if(it.home.isFairyTalePlayed) View.VISIBLE else View.INVISIBLE
 
         }
-    }
+    }*/
 
-    private fun setNickname(){
+    /*private fun setNickname(){
         val savedNickname = CommaApplication.preferences.getString(getString(R.string.nickname), "")
         binding.textGreeting.text = savedNickname + getString(R.string.home_tv_greeting)
-    }
+    }*/
 
     private fun setWordCardPreviewList(){
         val includeWordCardBinding = binding.includeHomeWordCard
 
         homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
             val itemCount = if(it.top5Cards.size < 5) it.top5Cards.size else 5
+            if(it.top5Cards.isNotEmpty()) includeWordCardBinding.composeViewHomePreviewList.background = null
+            else includeWordCardBinding.composeViewHomePreviewList.setBackgroundResource(R.drawable.img_bg_no_card)
             includeWordCardBinding.composeViewHomePreviewList.apply {
                 setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
                 setContent {

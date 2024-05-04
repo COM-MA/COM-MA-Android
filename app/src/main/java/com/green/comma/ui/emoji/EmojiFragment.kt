@@ -158,7 +158,7 @@ class EmojiFragment : Fragment() {
                 val parentsEnum = EmojiControl.emojiList[parentsIdx].enum.toString()
 
                 var requestData = RequestEmotionDto(parentsEnum, childEnum)
-                emojiViewModel.postEmoji(requestData)
+                emojiViewModel.postEmoji(requestData, requireContext())
             }
         }
     }
