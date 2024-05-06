@@ -1,8 +1,11 @@
 <div align="center">
 
-  <h1> <i>' COM-MA '</i> <br>AI Camera-Based Sign Language Platform for CODA</h1><br>
-
+  <h2> <i>' COM-MA '</i> <br>AI Camera-Based Sign Language Education Platform for CODA<br></h2>
+  2nd submission [https://www.youtube.com/watch?v=WfFZMll-lgc]
+  <br>
+  1st submission [https://youtu.be/9KRVqarybjo]
   <img src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/5cdd7168-3cee-4385-8944-c41d85ae18e4" alt="Slide 16_9 - 4">
+
 </div>
 
 
@@ -89,23 +92,33 @@ Our solutions contribute to <b>overcoming the linguistic and cultural gaps</b> t
 > Create quizzes directly from saved word cards for educational use.
 <br>
 
+### 🟣 Daily Mission Stickers
+> Motivate users with one-day mission stickers such as word registration, quiz participation, and fairy tale viewing.
+<br>
+
+### 😎 Today’s mood sharing function
+> It provides a function that allows parents and children to express each other's emotions with emoticons. This can strengthen the emotional connection between parents and children.
+<br>
+
 ### 📚 Storybooks
 > Easily watch and educate with subtitles or sign language provided in storybooks.
 <br>
 
-### 🟣 Daily Mission Stickers
-> Motivate users with one-day mission stickers such as word registration, quiz participation, and fairy tale viewing.
+<img width="991" alt="스크린샷 2024-05-06 오전 4 39 54" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/c5835aef-d91b-4421-a1ec-d9d460ef32ae">
 
-![image](https://github.com/COM-MA/COM-MA-Android/assets/102026726/6e53f8cb-157f-4603-9300-07cdbb8958ed)
+<img width="991" alt="스크린샷 2024-05-06 오전 4 35 52" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/4a045bf5-fe19-4eb0-b1fa-31a7e1258b0b">
+
+<img width="991" alt="스크린샷 2024-05-06 오전 4 36 29" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/30962be0-b5cc-43c6-839a-a6517e2f7cd1">
+
 
 <br />
 
 ## 💟 How to Run
 
 ```bash
-# 1. Download APK File
+# 1. Download APK File ✨
 
-# 2. Install on your Android
+# 2. Install on your Android ✨
 
 ```
 <br>
