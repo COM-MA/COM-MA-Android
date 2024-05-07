@@ -26,8 +26,8 @@ class CardSearchWayDialogActivity : AppCompatActivity() {
             finish()
         }
         binding.btnRecogWithSign.setOnClickListener{
-            val intent = Intent(this, CameraActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, CameraActivity::class.java))
+            finish()
         }
     }
 }
