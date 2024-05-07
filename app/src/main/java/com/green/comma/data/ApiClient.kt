@@ -26,6 +26,7 @@ import javax.net.ssl.X509TrustManager
 
 object ApiClient {
     private const val baseUrl = "https://com-ma.store:8081"
+    private const val aiUrl = "http://3.35.251.168:5000"
     private const val contentType = "application/json"
     //private const val sampleToken = "Bearer " + "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNzEzMzIyNTQyLCJleHAiOjE3MTU5MTQ1NDJ9.k4UqxxAWf_DBO0YpIZXg-UMqNaI_pe0Fda1X4oivXTg"
 
@@ -40,7 +41,14 @@ object ApiClient {
     fun getApiClientForGoogleLogin(context: Context): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .client(sslOkHttpClient(context, AppInterceptorForGoogleLogin(context)))
+            .client(sslOkHttpClient(context, AppInterceptorForGoogleLoginAndAI(context)))
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+    fun getApiClientForAI(context: Context): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(aiUrl)
+            .client(sslOkHttpClient(context, AppInterceptorForGoogleLoginAndAI(context)))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -123,7 +131,7 @@ object ApiClient {
         }
     }
 
-    class AppInterceptorForGoogleLogin(private val context: Context) : Interceptor {
+    class AppInterceptorForGoogleLoginAndAI(private val context: Context) : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain) : Response = with(chain) {
             val newRequest = request().newBuilder().build()

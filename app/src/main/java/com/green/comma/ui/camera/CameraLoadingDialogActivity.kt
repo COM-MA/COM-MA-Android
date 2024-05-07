@@ -18,6 +18,6 @@ class CameraLoadingDialogActivity : AppCompatActivity() {
             var intent = Intent()
             setResult(RESULT_OK, intent)
             finish()
-        }, 1500)
+        }, 1000)
     }
 }

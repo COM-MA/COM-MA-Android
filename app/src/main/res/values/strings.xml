@@ -5,6 +5,8 @@
     <string name="nickname">nickname</string>
     <string name="search_word">searchWord</string>
 
+    <string name="form_data_video_key">file</string>
+
     <string name="client_id_android">946848719057-qm2dicelojce0i9qo76i4ia82etne4cp.apps.googleusercontent.com</string>
     <string name="client_id_web">946848719057-10a9o0g40b346nvde0qsvjc9rhif08ef.apps.googleusercontent.com</string>
 

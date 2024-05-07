@@ -1,293 +1,272 @@
 package com.green.comma.ui.camera
 
 import android.Manifest
-import android.content.Context
+import android.content.ContentResolver
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CameraCharacteristics
-import android.hardware.camera2.CameraManager
-import android.media.ImageReader
+import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
-import android.util.Size
-import android.view.Surface
-import android.view.WindowManager
+import android.os.CountDownTimer
+import android.os.Looper
+import android.provider.MediaStore
+import android.util.Log
+import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.video.FallbackStrategy
+import androidx.camera.video.MediaStoreOutputOptions
+import androidx.camera.video.Quality
+import androidx.camera.video.QualitySelector
+import androidx.camera.video.Recorder
+import androidx.camera.video.Recording
+import androidx.camera.video.VideoCapture
+import androidx.camera.video.VideoRecordEvent
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.green.comma.ftlite.Classifier
-import com.green.comma.ftlite.ConnectionCallback
-import com.green.comma.ftlite.YuvToRgbConverter
 import com.green.comma.R
 import com.green.comma.databinding.ActivityCameraBinding
-import java.io.IOException
+import com.green.comma.ui.card.CardSearchDetailActivity
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+
 
 class CameraActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityCameraBinding.inflate(layoutInflater, null, false) }
-    private lateinit var classifier: Classifier
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                setFragment()
-            } else {
-                Toast.makeText(
-                    this,
-                    "permission denied",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-    private var previewWidth = 0
-    private var previewHeight = 0
-    private var sensorOrientation = 0
-    private var rgbFrameBitmap: Bitmap? = null
-    private var isProcessingFrame = false
-    private var handlerThread: HandlerThread? = null
-    private var handler: Handler? = null
+    private lateinit var binding: ActivityCameraBinding
+
+    private val aiViewModel: AIViewModel by viewModels { AIViewModelFactory(applicationContext) }
+
+    private var videoCapture: VideoCapture<Recorder>? = null
+    private var recording: Recording? = null
+    private var videoPath: Uri? = null
+
+    private lateinit var cameraExecutor: ExecutorService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        initClassifier()
-        checkPermission()
-
-        binding.btnBack.setOnClickListener {
-            finish()
+        // Request camera permissions
+        if (allPermissionsGranted()) {
+            startCamera()
+        } else {
+            ActivityCompat.requestPermissions(
+                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
+
+        // Set up the listeners for take photo and video capture buttons
+        binding.btnStartRecording.setOnClickListener { captureVideo() }
+
+        aiViewModel.prediction.observe(this) {
+            moveToDetailActivity(it.prediction)
+            if(videoPath != null) deleteVideo()
+        }
+
+        cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
-    override fun onResume() {
-        super.onResume()
+    private fun captureVideo() {
+        val videoCapture = this.videoCapture ?: return
+        binding.btnStartRecording.isEnabled = false
 
-        handlerThread = HandlerThread("InferenceThread")
-        handlerThread?.start()
-        handler = Handler(handlerThread!!.looper)
+        // 진행 중인 활성 녹화 세션이 있다면 중지
+        val curRecording = recording
+        if(curRecording != null){
+            curRecording.stop()
+            recording = null
+            return
+        }
+
+        // 비디오 녹화를 위한 파일 이름 생성
+        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.KOREA)
+            .format(System.currentTimeMillis())
+
+        // 비디오 파일의 메타데이터를 설정한다.
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
+            put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4")
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/CameraX-Video")
+            }
+        }
+
+        // 콘텐츠의 외부 저장 위치를 옵션으로 설정하기 위해 빌더를 만들고 인스턴스를 빌드
+        val mediaStoreOutputOptions = MediaStoreOutputOptions
+            .Builder(contentResolver, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+            .setContentValues(contentValues)
+            .build()
+
+        recording = videoCapture.output
+            .prepareRecording(this, mediaStoreOutputOptions)
+            .start(ContextCompat.getMainExecutor(this)) { recordEvent ->
+                when(recordEvent) {
+                    is VideoRecordEvent.Start -> {
+                        binding.btnStartRecording.apply {
+                            text = "녹화 종료"
+                            isEnabled = true
+                        }
+                    }
+                    is VideoRecordEvent.Finalize -> {
+                        if(!recordEvent.hasError()) {
+                            val msg = "녹화 성공" +
+                                    "${recordEvent.outputResults.outputUri}"
+                            val file = getFileFromContentUri(recordEvent.outputResults.outputUri)
+                            if(file != null){
+                                videoPath = recordEvent.outputResults.outputUri
+                                postVideoToServer(getVideoBody(file))
+                            }
+                            Log.d(TAG, msg)
+                        } else {
+                            recording?.close()
+                            recording = null
+                            Log.e(TAG, "Video capture ends with error: " +
+                                    "${recordEvent.error}")
+                            Toast.makeText(baseContext, "촬영에 실패했어요.", Toast.LENGTH_SHORT)
+                                .show()
+                            finish()
+                        }
+                        binding.btnStartRecording.apply {
+                            text = "녹화 성공"
+                            isEnabled = true
+                        }
+                    }
+                }
+            }
     }
 
-    override fun onPause() {
-        handlerThread?.quitSafely()
-        try {
-            handlerThread?.join()
-            handlerThread = null
-            handler = null
-        } catch (e: InterruptedException) {
-            Toast.makeText(this, "activity onPause InterruptedException", Toast.LENGTH_SHORT).show()
-        }
-        super.onPause()
+    private fun startCamera() {
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+
+        cameraProviderFuture.addListener(Runnable {
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            val preview = Preview.Builder()
+                .build()
+                .also {
+                    it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+                }
+
+            val recorder = Recorder.Builder()
+                .setQualitySelector(QualitySelector.from(Quality.HIGHEST,
+                    FallbackStrategy.higherQualityOrLowerThan(Quality.SD)))
+                .build()
+
+            videoCapture = VideoCapture.withOutput(recorder)
+
+            val cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+            try {
+                cameraProvider.unbindAll()
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, videoCapture)
+
+                binding.btnStartRecording.performClick()
+                android.os.Handler(Looper.getMainLooper()).postDelayed({
+                    binding.btnStartRecording.performClick()
+                }, 4000)
+            } catch (exc: Exception) {
+                Log.e(TAG, "Use case binding failed", exc)
+            }
+        }, ContextCompat.getMainExecutor(this))
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(
+            baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onDestroy() {
-        classifier.finish()
         super.onDestroy()
+        cameraExecutor.shutdown()
     }
 
-    private fun initClassifier() {
-        classifier = Classifier(this, Classifier.IMAGENET_CLASSIFY_MODEL)
-        try {
-            classifier.init()
-        } catch (exception: IOException) {
-            Toast.makeText(this, "Can not init Classifier!!", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun checkPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                setFragment()
-            }
-            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-                Toast.makeText(
-                    this,
-                    "This app need camera permission to classify realtime camera image",
-                    Toast.LENGTH_SHORT
-                ).show()
-                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            }
-            else -> requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-        }
-    }
-
-    private fun setFragment() {
-        val inputSize = classifier.getModelInputSize()
-        val cameraId = chooseCamera()
-        if (inputSize.width > 0 && inputSize.height > 0 && cameraId != null) {
-            val fragment = CameraFragment.newInstance(object : ConnectionCallback {
-                override fun onPreviewSizeChosen(size: Size, cameraRotation: Int) {
-                    previewWidth = size.width
-                    previewHeight = size.height
-                    sensorOrientation = cameraRotation - getScreenOrientation()
+    companion object {
+        private const val TAG = "CameraXApp"
+        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val REQUEST_CODE_PERMISSIONS = 10
+        private val REQUIRED_PERMISSIONS =
+            mutableListOf (
+                Manifest.permission.CAMERA,
+            ).apply {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 }
-            }, {
-                processImage(it)
-            },
-                inputSize,
-                cameraId
+            }.toTypedArray()
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults:
+        IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (allPermissionsGranted()) {
+                startCamera()
+            } else {
+                Toast.makeText(this,
+                    "Permissions not granted by the user.",
+                    Toast.LENGTH_SHORT).show()
+                finish()
+            }
+        }
+    }
+
+    private fun getVideoBody(file: File): MultipartBody.Part {
+        return MultipartBody.Part
+            .createFormData(
+                name = getString(R.string.form_data_video_key),
+                filename = file.name,
+                body = file.asRequestBody("video/mp4".toMediaType())
             )
-            supportFragmentManager.beginTransaction().replace(R.id.frame_camera, fragment).commit()
-        } else {
-            Toast.makeText(this, "Can not find camera", Toast.LENGTH_SHORT).show()
-        }
     }
 
-    private fun chooseCamera(): String? {
-        val manager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        try {
-            manager.cameraIdList.forEach { cameraId ->
-                val characteristics = manager.getCameraCharacteristics(cameraId)
-                val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
-                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
-                    return cameraId
-                }
+    private fun postVideoToServer(videoData: MultipartBody.Part){
+        val result = aiViewModel.postPrediction(videoData, this)
+        println(result)
+    }
+
+    private fun getFileFromContentUri(contentUri: Uri): File? {
+        val filePathColumn = arrayOf(MediaStore.Video.Media.DATA)
+        val cursor = contentResolver.query(contentUri, filePathColumn, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndex(filePathColumn[0])
+                val filePath = it.getString(columnIndex)
+                return File(filePath)
             }
-        } catch (e: CameraAccessException) {
-            Toast.makeText(this, "CameraAccessException", Toast.LENGTH_SHORT).show()
         }
         return null
     }
 
-    private fun getScreenOrientation(): Int {
-        val display = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            this.display
+    private fun moveToDetailActivity(resultWord: String) {
+        val intent = Intent(this, CardSearchDetailActivity::class.java)
+        intent.putExtra(getString(R.string.search_word), resultWord)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun deleteVideo() {
+        // 컨텐트 프로바이더를 통해 동영상 삭제
+        val contentResolver: ContentResolver = applicationContext.contentResolver
+        val rowsDeleted: Int = contentResolver.delete(videoPath!!, null, null)
+        if (rowsDeleted > 0) {
+            // 삭제 성공
+            println("동영상이 성공적으로 삭제되었습니다.")
         } else {
-            windowManager.defaultDisplay
-        } ?: return 0
-        return when (display.rotation) {
-            Surface.ROTATION_270 -> 270
-            Surface.ROTATION_180 -> 180
-            Surface.ROTATION_90 -> 90
-            else -> 0
-        }
-    }
-
-    private var count = 0
-    private var recogCount = RecogCount()
-
-    private fun processImage(reader: ImageReader) {
-        if (previewWidth == 0 || previewHeight == 0) return
-        if (rgbFrameBitmap == null) {
-            rgbFrameBitmap = Bitmap.createBitmap(previewWidth, previewHeight, Bitmap.Config.ARGB_8888)
-        }
-        if (isProcessingFrame) return
-        isProcessingFrame = true
-        val image = reader.acquireLatestImage()
-        if (image == null) {
-            isProcessingFrame = false
-            return
-        }
-
-        YuvToRgbConverter.yuvToRgb(this, image, rgbFrameBitmap!!)
-
-        handler?.post {
-            if (::classifier.isInitialized && classifier.isInitialized()) {
-                val output = classifier.classify(rgbFrameBitmap!!, sensorOrientation)
-                runOnUiThread {
-                    count++
-                    //binding.textResult.text = String.format(Locale.ENGLISH, "class : %s, prob : %.2f%%", output.first, output.second * 100)
-                    recogCount.addCount(output.first)
-
-                    if(count > 90){
-                        println(count)
-                        var intent = Intent(this, CameraLoadingDialogActivity::class.java)
-                        startActivity(intent)
-                        startActivityForResult(intent, 1)
-                    }
-                }
-            }
-            image.close()
-            isProcessingFrame = false
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK){
-            var intent = Intent(this, CameraResultActivity::class.java)
-            intent.putExtra("result", recogCount.maxCount())
-            startActivity(intent)
-            finish()
-        }
-    }
-
-    class RecogCount {
-        private var bear: Int = 0
-        private var bee: Int = 0
-        private var bridge: Int = 0
-        private var sea: Int = 0
-        private var hospital: Int = 0
-        private var teacher: Int = 0
-        private var kindergarten: Int = 0
-        private var mom: Int = 0
-        private var school: Int = 0
-        private var playground: Int = 0
-
-        private var maxCount = bear
-        private var maxName: String = "곰"
-
-        fun addCount(name: String){
-            when(name) {
-                "곰" -> {
-                    bear++
-                    compareMax(bear, "곰")
-                }
-                "벌" -> {
-                    bee++
-                    compareMax(bee, "벌")
-                }
-                "다리" -> {
-                    bridge++
-                    compareMax(bridge, "다리")
-                }
-                "바다" -> {
-                    sea++
-                    compareMax(sea, "바다")
-                }
-                "병원" -> {
-                    hospital++
-                    compareMax(hospital, "병원")
-                }
-                "선생님" -> {
-                    teacher++
-                    compareMax(teacher, "선생님")
-                }
-                "유치원" -> {
-                    kindergarten++
-                    compareMax(kindergarten, "유치원")
-                }
-                "엄마" -> {
-                    mom++
-                    compareMax(mom, "엄마")
-                }
-                "학교" -> {
-                    school++
-                    compareMax(school, "학교")
-                }
-                "놀이터" -> {
-                    playground++
-                    compareMax(playground, "놀이터")
-                }
-                else -> false
-            }
-        }
-
-        fun maxCount(): String {
-            return maxName
-        }
-
-        fun compareMax(count: Int, name: String){
-            if(maxCount < count) {
-                maxCount = count
-                maxName = name
-            }
+            // 삭제 실패
+            println("동영상 삭제에 실패했습니다.")
         }
     }
 }
