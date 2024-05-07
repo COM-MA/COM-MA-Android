@@ -21,20 +21,13 @@ class FairytaleViewModel(private val fairytaleRepository: FairytaleRepository) :
         //loadFairytaleList()
     }
 
-    private val _text = MutableLiveData<String>().apply {
-        value = ""
-    }
-    val text: LiveData<String> = _text
-
     fun loadFairytaleList() {
-        println("동화 로드")
         viewModelScope.launch {
             val fairytaleList = fairytaleRepository.getFairytaleList()
             _fairytaleItems.value = fairytaleList
         }
     }
     fun loadFairytaleDetail(farirytaleId: Long) {
-        println("동화 상세 로드")
         viewModelScope.launch {
             val fairytaleDetail = fairytaleRepository.getFairytaleDetail(farirytaleId)
             _itemDetail.value = fairytaleDetail
