@@ -120,6 +120,7 @@ class HomeFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     private fun setFairytalePreviewList(){
         val includeFairytaleBinding = binding.includeHomePopularFairytale
+        includeFairytaleBinding.composeViewHomePreviewList.background = null
         homeViewModel.homeDataItem.observe(viewLifecycleOwner) { it ->
             val itemCount = if(it.top2Fairytales.size < 2) it.top2Fairytales.size else 2
             includeFairytaleBinding.composeViewHomePreviewList.apply {

@@ -69,6 +69,7 @@
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/compose_view_home_preview_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="200dp"
+            android:background="@drawable/img_bg_no_card"/>
     </LinearLayout>
 </layout>
