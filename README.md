@@ -1,9 +1,12 @@
 <div align="center">
 
   <h2> <i>' COM-MA '</i> <br>AI Camera-Based Sign Language Education Platform for CODA<br></h2>
+  <br>
   2nd submission [https://www.youtube.com/watch?v=WfFZMll-lgc]
   <br>
-  1st submission [https://youtu.be/9KRVqarybjo]
+  1st submission [https://youtu.be/9KRVqarybjo]  
+  
+  <br><br>
   <img src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/5cdd7168-3cee-4385-8944-c41d85ae18e4" alt="Slide 16_9 - 4">
 
 </div>
